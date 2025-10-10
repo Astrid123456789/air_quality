@@ -125,16 +125,29 @@ class FeatureEngineer:
         
         # TODO Combine datasets to ensure consistent encoding across train/test
         # This prevents issues where test set has categories not seen in training
-
+        train_df = train_df.copy()
+        test_df = test_df.copy()
+        combined = pd.concat([train_df, test_df], axis=0, ignore_index=True)
         # TODO Initialize label encoder for consistent categorical-to-numerical conversion
-
+        encoders = {}
         # TODO Identify categorical columns that need encoding
+        categorical_columns = [col for col in combined.columns 
+                       if combined[col].dtype == 'object' 
+                       and col != 'date' 
+                       and col != Config.target_col]
+    
+        print("Categorical columns to encode:", categorical_columns)
         # These are high-cardinality categories (many unique values)
-
         # TODO Apply label encoding: convert each unique category to a unique integer
+        for col in categorical_columns:
+            le = LabelEncoder()
+            combined[col] = le.fit_transform(combined[col].astype(str))
+            encoders[col] = le
+            logger.info(f"Encoded {col}: {len(le.classes_)} unique values")
 
         # TODO Split back into separate train and test datasets
-        
+        train_encoded = combined.iloc[:len(train_df)].copy()
+        test_encoded = combined.iloc[len(train_df):].copy()
         # Logging
         logger.success("Categorical encoding completed")
 
