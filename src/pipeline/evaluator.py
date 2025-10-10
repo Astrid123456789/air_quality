@@ -11,8 +11,9 @@ from sklearn.model_selection import GroupKFold
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score
 
 # TODO Import GridSearchCV for hyperparameter optimization (Workshop 3)
-
+from sklearn.model_selection import GridSearchCV
 # TODO Import MLflow (Workshop 4)
+import mlflow
 
 from utils.config import N_SPLITS, RANDOM_STATE
 from utils.logger import get_logger, LogLevel
