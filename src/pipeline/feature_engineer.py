@@ -11,6 +11,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_selection import SelectKBest, f_regression, RFE
 from sklearn.linear_model import LinearRegression
 
+print("tes")
 from utils.config import (
     TEMPORAL_FEATURES, N_FEATURES_SELECTKBEST, N_FEATURES_RFE,
     DATE_COL, LATITUDE_COL, LONGITUDE_COL, TARGET_COL
