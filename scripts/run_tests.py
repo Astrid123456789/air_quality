@@ -311,10 +311,10 @@ class TestRunner:
             
             if status:
                 self.print_warning("Uncommitted changes detected:")
-                for line in status.split('\n')[:5]:  # Show max 5 files
+                for line in status.splitlines()[:5]:  # Show max 5 files
                     self.print_step(f"  {line}")
-                if len(status.split('\n')) > 5:
-                    self.print_step(f"  ... and {len(status.split('\n')) - 5} more files")
+                if len(status.splitlines()) > 5:
+                    self.print_step(f"  ... and {len(status.splitlines()) - 5} more files")
                 
                 # Allow tests to run but warn about proof implications
                 self.print_step("Tests will run, but proof will reflect current commit state")
