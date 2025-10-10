@@ -78,22 +78,48 @@ class Evaluator:
         # TODO Set up GroupKFold cross-validation
         # If groups provided, use GroupKFold with N_SPLITS and RANDOM_STATE
         if groups is not None:
-            cv = GroupKFold(n_splits=N_splits)
+            cv = GroupKFold(n_splits=N_SPLITS)
         # Else if no groups provided, use KFold with N_SPLITS, shuffle=True and RANDOM_STATE
         else:
             cv = KFold(n_splits=N_SPLITS, shuffle=True, random_state=RANDOM_STATE)
 
         fold_results = []
+
         # TODO Perform cross-validation enumerating folds
-            # Split data
-            
+        # Split data
+        X_work = X.copy()
+        X_work["fold"] = -1   # initialize with -1
+        fold_col_idx = X_work.columns.get_loc("fold")
+        for fold, (train_idx, val_idx) in enumerate(cv.split(X, y, groups=groups)):
+            X_work.iloc[val_idx, fold_col_idx] = fold
+
+        for fold in range(N_SPLITS):
+
             # Train model
+            model = clone(model)
+    
+            # Create train/validation split for current fold
+            train_mask = X_work['fold'] != fold
+            val_mask = X_work['fold'] == fold
+            X_train_fold = X_work[train_mask].drop(columns=["fold"])
+            y_train_fold = y[train_mask]
+            X_val_fold = X_work[val_mask].drop(columns=["fold"])
+            y_val_fold = y[val_mask]
+
+            model.fit(X_train_fold, y_train_fold)
             
             # Predict
+            val_preds = model.predict(X_val_fold)
             
             # Calculate metrics and append to fold_results
+            mse = mean_squared_error(y_val_fold, val_preds)
+            rmse = np.sqrt(mse)
+            r2 = r2_score(y_val_fold, val_preds)
+            metrics = {"mse":mse, "rmse":rmse, "r2_score":r2}
+            fold_results.append(metrics)
             
             # Logging
+            logger.info(f"Fold {fold}: mse: {mse}, rmse: {rmse}, r2_score: {r2}")
         
         # Aggregate results
         cv_results = {}
