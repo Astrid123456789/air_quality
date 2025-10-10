@@ -212,10 +212,15 @@ class FeatureEngineer:
         logger.substep("Feature Selection - RFE")
         
         # TODO Initialize RFE with LinearRegression as the estimator
+        estimator = LinearRegression()
+        selector_rfe = RFE(estimator=estimator, n_features_to_select=rfe_features)
 
         # TODO Fit RFE and transform features
+        selector_rfe.fit(X, y)
 
         # TODO Get selected features and their rankings
+        selected_features_mask = selector_rfe.support_
+        selected_features_rfe = X.columns[selected_features_mask]
 
         # Logging
         logger.info(f"Top {rfe_features} features selected by RFE:", LogLevel.NORMAL)
