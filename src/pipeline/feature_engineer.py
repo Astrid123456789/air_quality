@@ -26,6 +26,7 @@ class FeatureEngineer:
     Handles temporal feature extraction, geographic feature creation,
     categorical encoding, and feature selection.
     """
+    print("test")
     
     def __init__(self):
         """Initialize the feature engineer."""
