@@ -77,8 +77,12 @@ class Evaluator:
         
         # TODO Set up GroupKFold cross-validation
         # If groups provided, use GroupKFold with N_SPLITS and RANDOM_STATE
+        if groups is not None:
+            cv = GroupKFold(n_splits=N_splits)
         # Else if no groups provided, use KFold with N_SPLITS, shuffle=True and RANDOM_STATE
-        
+        else:
+            cv = KFold(n_splits=N_SPLITS, shuffle=True, random_state=RANDOM_STATE)
+
         fold_results = []
         # TODO Perform cross-validation enumerating folds
             # Split data
