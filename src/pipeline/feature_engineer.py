@@ -169,10 +169,21 @@ class FeatureEngineer:
         logger.substep("Feature Selection - SelectKBest")
         
         # TODO Initialize and fit the selector
+        selector_kbest = SelectKBest(score_func=f_regression, k=k)
+        selector_kbest.fit(X, y)
 
         # TODO Get selected feature names and their scores
+        selected_features_mask = selector_kbest.get_support()
+        feature_scores = selector_kbest.scores_
+        selected_features_kbest = X.columns[selected_features_mask]
 
         # TODO Create a summary DataFrame for selected features only
+        feature_importance_df = pd.DataFrame({
+        'Feature': X.columns,
+        'Score': feature_scores,
+        'Selected': selected_features_mask
+    }).sort_values(by='Score', ascending=False)
+        selected_df = feature_importance_df[feature_importance_df['Selected']]
 
         # Logging
         logger.info(f"Top {k} features selected by SelectKBest:", LogLevel.NORMAL)
