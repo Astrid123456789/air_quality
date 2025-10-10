@@ -56,11 +56,20 @@ class FeatureEngineer:
         logger.substep("Extracting Temporal Features")
         
         # TODO Copy the DataFrame into df_features to avoid modifying the original
-        
+        df_features = df.copy()
         # TODO Ensure the date column is datetime type for proper extraction
+        df_features['date'] = pd.to_datetime(df_features['date'])
 
         # TODO Extract basic temporal components that affect air quality
-        
+        df_features['year'] = df_features['date'].dt.year
+        df_features['month'] = df_features['date'].dt.month
+        df_features['day'] = df_features['date'].dt.day
+        df_features['quarter'] = df_features['date'].dt.quarter
+        df_features['week'] = df_features['date'].dt.isocalendar().week
+        df_features['dayofweek'] = df_features['date'].dt.dayofweek
+        df_features['is_weekend'] = df['dayofweek'].isin([5, 6]).astype(int)
+        df_features['is_month_start'] = df_features['date'].dt.is_month_start.astype(int)
+        df_features['is_month_end'] = df_features['date'].dt.is_month_end.astype(int)
         # Logging
         logger.success("Temporal features extracted")
 
