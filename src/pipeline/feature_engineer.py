@@ -93,10 +93,11 @@ class FeatureEngineer:
         logger.substep("Extracting Geographic Features")
         
         # TODO Copy the DataFrame into df_features to avoid modifying the original
-        
+        df_features=df.copy()
         # TODO Create a unique location identifier by combining coordinates
         # This allows the model to learn location-specific patterns
-        
+        df_features['location'] = (df_features['site_latitude'].astype(str) + '_' + 
+                        df['site_longitude'].astype(str))
         # Logging
         n_locations = df_features['location'].nunique()
         logger.success(f"Created location identifiers for {n_locations} unique locations")
