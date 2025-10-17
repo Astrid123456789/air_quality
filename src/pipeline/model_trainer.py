@@ -55,6 +55,24 @@ class ModelTrainer:
         if model_type == 'linear':
             model = LinearRegression(**params)
         # TODO Add XGBoost and LightGBM model creation (Workshop 3)
+        elif model_type == 'xgboost':
+            model = XGBRegressor(
+                random_state=RANDOM_STATE,
+                n_estimators=100,
+                learning_rate=0.1,
+                max_depth=6,
+                **params
+            )
+        
+        elif model_type == 'lightgbm':
+            model = LGBMRegressor(
+                random_state=RANDOM_STATE,
+                n_estimators=100,
+                learning_rate=0.1,
+                num_leaves=31,
+                **params
+            )
+
         else:
             raise ValueError(f"Unknown model type: {model_type}. Available: {MODEL_TYPES}")
         
