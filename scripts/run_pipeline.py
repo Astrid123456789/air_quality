@@ -154,6 +154,12 @@ def run_pipeline(args):
                     final_model.fit(X, y)
 
                     # Quick evaluation to get full cv_results format
+                    cv_scores = evaluator.cross_validate_model(
+                        model=final_model,
+                        X=X,
+                        y=y,
+                        groups=groups
+                    )
 
         # Extract results for compatibility
         mean_rmse = cv_results['rmse_mean']
