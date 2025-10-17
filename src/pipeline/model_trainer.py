@@ -58,6 +58,7 @@ class ModelTrainer:
         # TODO Add XGBoost and LightGBM model creation (Workshop 3)
         elif model_type == 'xgboost':
             model = XGBRegressor(
+                objective='reg:squarederror',
                 random_state=RANDOM_STATE,
                 n_estimators=100,
                 learning_rate=0.1,
@@ -67,6 +68,8 @@ class ModelTrainer:
         
         elif model_type == 'lightgbm':
             model = LGBMRegressor(
+                objective='regression',
+                verbose=-1,
                 random_state=RANDOM_STATE,
                 n_estimators=100,
                 learning_rate=0.1,
