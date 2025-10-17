@@ -75,12 +75,16 @@ class ModelTrainer:
         logger.substep(f"Training {model_type.title()} Model")
 
         # TODO Add MLflow parameter logging (Workshop 4)
+        model = self.create_model(model_type, **model_params)
         
         # TODO Train the model
+        model.fit(X, y)
         
         # TODO Store trained model
+        self.trained_models[model_type] = model
         
         # TODO Calculate training score
+        train_score = model.score(X, y)
 
         # Logging
         with logger.indent():
