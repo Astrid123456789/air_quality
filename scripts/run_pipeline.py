@@ -159,26 +159,26 @@ def run_pipeline(args):
                         y=y,
                         groups=groups
                     )
-                        # Add MLflow hyperparameter optimization logging (Workshop 4)
+                    # Add MLflow hyperparameter optimization logging (Workshop 4)
 
-                        # Use optimized model for final evaluation
-                        final_model = trainer.create_model(args.model, **best_params)
-                        final_model.fit(X, y)
+                    # Use optimized model for final evaluation
+                    final_model = trainer.create_model(args.model, **best_params)
+                    final_model.fit(X, y)
 
-                        # Quick evaluation to get full cv_results format
-                        cv_scores = evaluator.cross_validate_model(
-                            model=final_model,
-                            X=X,
-                            y=y,
-                            groups=groups
-                        )
+                    # Quick evaluation to get full cv_results format
+                    cv_scores = evaluator.cross_validate_model(
+                        model=final_model,
+                        X=X,
+                        y=y,
+                        groups=groups
+                    )
 
-                        cv_results = {
-                            "r2_mean":  float(np.mean(cv_scores)),
-                            "r2_std":   float(np.std(cv_scores)),
-                            "rmse_mean": float(best_score),  
-                            "rmse_std":  None               
-                        }
+                    cv_results = {
+                        "r2_mean":  float(np.mean(cv_scores)),
+                        "r2_std":   float(np.std(cv_scores)),
+                        "rmse_mean": float(best_score),  
+                        "rmse_std":  None               
+                    }
             
                 except Exception as e:
                     logger.error(f"Optimization failed ({type(e).__name__}): {e}. Falling back to standard CV.")
