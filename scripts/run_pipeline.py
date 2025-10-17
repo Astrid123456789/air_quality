@@ -111,12 +111,18 @@ def run_pipeline(args):
         # TODO Create model for cross-validation
         trainer = ModelTrainer()
         model = trainer.create_model("linear")
+
         # TODO Prepare data X, y, and groups for cross-validation
+        feature_cols = engineer.get_feature_columns(train_features)
+        X = train_features[feature_cols]
+        y = train_features[TARGET_COL]
+        groups = train_features[CITY_COL]
 
         if not args.optimize:
             with logger.timer("Cross-validation"):
                 break
                 # TODO Standard cross-validation using Evaluator
+
         # TODO Add hyperparameter optimization logic (Workshop 3)
 
             # Get parameter grid for the model
