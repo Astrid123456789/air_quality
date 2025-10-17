@@ -12,6 +12,7 @@ from sklearn.metrics import mean_absolute_error, r2_score,root_mean_squared_erro
 from sklearn.base import clone
 
 # TODO Import GridSearchCV for hyperparameter optimization (Workshop 3)
+from sklearn.model_selection import GridSearchCV
 # TODO Import MLflow (Workshop 4)
 from utils.config import N_SPLITS, RANDOM_STATE
 from utils.logger import get_logger, LogLevel

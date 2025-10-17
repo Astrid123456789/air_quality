@@ -1,10 +1,10 @@
 {
-  "message": "{\"git_context\":{\"author_email\":\"astrid.flichy@gmail.com\",\"author_name\":\"Astrid\",\"commit_hash\":\"919c9710472ac4dd6a56180f56e1d80349fce8fa\"},\"test_summary\":{\"execution_time\":3.0,\"passed_tests\":1,\"success_rate\":100.0,\"total_tests\":1},\"timestamp\":\"2025-10-17T14:36:16.697903\",\"version\":\"1.0\"}",
-  "message_hash": "oIh1BukTY7kywlPib/X/JUVweurwhRV1Z5Jkl6ADodM=",
+  "message": "{\"git_context\":{\"author_email\":\"astrid.flichy@gmail.com\",\"author_name\":\"Astrid\",\"commit_hash\":\"0f8bec3438439f92803ee53ae56ad176ff8eaae5\"},\"test_summary\":{\"execution_time\":3.03,\"passed_tests\":3,\"success_rate\":75.0,\"total_tests\":4},\"timestamp\":\"2025-10-17T15:12:55.979694\",\"version\":\"1.0\"}",
+  "message_hash": "fMS7BFLRkYRUAJn2FcR9+kEVo+bMu+I3up3W22Ih230=",
   "test_results": {
     "execution_metadata": {
-      "timestamp": "2025-10-17T14:36:16.681280",
-      "execution_time_seconds": 3.0,
+      "timestamp": "2025-10-17T15:12:55.973711",
+      "execution_time_seconds": 3.03,
       "runner_version": "Enhanced Test Runner v2.0",
       "environment": {
         "python_version": "3.11.13 (main, Sep 18 2025, 19:46:39) [Clang 20.1.4 ]",
@@ -13,29 +13,47 @@
       }
     },
     "test_summary": {
-      "total_tests": 1,
-      "passed_tests": 1,
-      "failed_tests": 0,
-      "success_rate": 100.0,
+      "total_tests": 4,
+      "passed_tests": 3,
+      "failed_tests": 1,
+      "success_rate": 75.0,
       "test_modules": [
-        "evaluator"
+        "evaluator",
+        "data_processor",
+        "model_trainer",
+        "feature_engineer"
       ]
     },
     "detailed_results": {
-      "evaluator": true
+      "evaluator": true,
+      "data_processor": true,
+      "model_trainer": false,
+      "feature_engineer": true
     },
     "module_breakdown": {
       "evaluator": {
+        "passed": true,
+        "status": "PASS"
+      },
+      "data_processor": {
+        "passed": true,
+        "status": "PASS"
+      },
+      "model_trainer": {
+        "passed": false,
+        "status": "FAIL"
+      },
+      "feature_engineer": {
         "passed": true,
         "status": "PASS"
       }
     }
   },
   "git_info": {
-    "commit_hash": "919c9710472ac4dd6a56180f56e1d80349fce8fa",
+    "commit_hash": "0f8bec3438439f92803ee53ae56ad176ff8eaae5",
     "author_name": "Astrid",
     "author_email": "astrid.flichy@gmail.com"
   },
-  "timestamp": "2025-10-17T14:36:16.697903",
+  "timestamp": "2025-10-17T15:12:55.979694",
   "signature_placeholder": "INSTRUCTOR_SIGNATURE_REQUIRED"
 }

@@ -26,7 +26,6 @@ from utils.utils import format_time_elapsed
 
 # TODO Import parameter grids for optimization (Workshop 3)
 from utils.config import DEFAULT_PARAM_GRIDS
-from sklearn.model_selection import GridSearchCV, GroupKFold, KFold
 
 # TODO Import MLflow (Workshop 4)
 

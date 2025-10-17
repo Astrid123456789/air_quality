@@ -1,7 +1,7 @@
 {
   "execution_metadata": {
-    "timestamp": "2025-10-17T14:36:16.681280",
-    "execution_time_seconds": 3.0,
+    "timestamp": "2025-10-17T15:12:55.973711",
+    "execution_time_seconds": 3.03,
     "runner_version": "Enhanced Test Runner v2.0",
     "environment": {
       "python_version": "3.11.13 (main, Sep 18 2025, 19:46:39) [Clang 20.1.4 ]",
@@ -10,19 +10,37 @@
     }
   },
   "test_summary": {
-    "total_tests": 1,
-    "passed_tests": 1,
-    "failed_tests": 0,
-    "success_rate": 100.0,
+    "total_tests": 4,
+    "passed_tests": 3,
+    "failed_tests": 1,
+    "success_rate": 75.0,
     "test_modules": [
-      "evaluator"
+      "evaluator",
+      "data_processor",
+      "model_trainer",
+      "feature_engineer"
     ]
   },
   "detailed_results": {
-    "evaluator": true
+    "evaluator": true,
+    "data_processor": true,
+    "model_trainer": false,
+    "feature_engineer": true
   },
   "module_breakdown": {
     "evaluator": {
+      "passed": true,
+      "status": "PASS"
+    },
+    "data_processor": {
+      "passed": true,
+      "status": "PASS"
+    },
+    "model_trainer": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "feature_engineer": {
       "passed": true,
       "status": "PASS"
     }
