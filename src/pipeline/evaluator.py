@@ -165,7 +165,7 @@ class Evaluator:
             cv_split = cv.split(X, y, groups=groups)
             logger.info(f"Using GroupKFold (n_splits={N_SPLITS}) for geographic CV")
         else:
-            cv = KFold(n_splits=N_SPLITS, shuffle=True, random_state=42)
+            cv = KFold(n_splits=N_SPLITS, shuffle=True, random_state=RANDOM_STATE)
             cv_split = cv.split(X, y)
             logger.info(f"Using KFold (n_splits={N_SPLITS}, shuffle=True)")
         
