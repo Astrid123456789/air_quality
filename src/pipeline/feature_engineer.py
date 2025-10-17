@@ -10,8 +10,6 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_selection import SelectKBest, f_regression, RFE
 from sklearn.linear_model import LinearRegression
-
-print("tes")
 from utils.config import (
     TEMPORAL_FEATURES, N_FEATURES_SELECTKBEST, N_FEATURES_RFE,
     DATE_COL, LATITUDE_COL, LONGITUDE_COL, TARGET_COL
@@ -67,7 +65,7 @@ class FeatureEngineer:
         df_features['quarter'] = df_features['date'].dt.quarter
         df_features['week'] = df_features['date'].dt.isocalendar().week
         df_features['dayofweek'] = df_features['date'].dt.dayofweek
-        df_features['is_weekend'] = df['dayofweek'].isin([5, 6]).astype(int)
+        df_features['is_weekend'] = df_features['dayofweek'].isin([5, 6]).astype(int)
         df_features['is_month_start'] = df_features['date'].dt.is_month_start.astype(int)
         df_features['is_month_end'] = df_features['date'].dt.is_month_end.astype(int)
         # Logging
@@ -134,7 +132,7 @@ class FeatureEngineer:
         categorical_columns = [col for col in combined.columns 
                        if combined[col].dtype == 'object' 
                        and col != 'date' 
-                       and col != Config.target_col]
+                       and col != TARGET_COL]
     
         print("Categorical columns to encode:", categorical_columns)
         # These are high-cardinality categories (many unique values)

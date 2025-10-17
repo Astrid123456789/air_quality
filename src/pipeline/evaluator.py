@@ -7,14 +7,12 @@ For detailed evaluation with visualizations, see utils.evaluation_utils.
 
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import GroupKFold
-from sklearn.metrics import root_mean_squared_error, mean_absolute_error, r2_score
+from sklearn.model_selection import GroupKFold,KFold
+from sklearn.metrics import mean_absolute_error, r2_score,root_mean_squared_error
+from sklearn.base import clone
 
 # TODO Import GridSearchCV for hyperparameter optimization (Workshop 3)
-from sklearn.model_selection import GridSearchCV
 # TODO Import MLflow (Workshop 4)
-import mlflow
-
 from utils.config import N_SPLITS, RANDOM_STATE
 from utils.logger import get_logger, LogLevel
 
@@ -42,8 +40,8 @@ class Evaluator:
         Returns:
             Dictionary with calculated metrics
         """
-        # TODO Calculate comprehensive regression metrics
-        rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+        # TODO Calculate comprehensive regression metrics        
+        rmse = root_mean_squared_error(y_true, y_pred)
         mae = mean_absolute_error(y_true, y_pred)
         r2 = r2_score(y_true, y_pred)
 
@@ -76,10 +74,8 @@ class Evaluator:
         logger.info(f"Cross-validating {model.__class__.__name__}...", LogLevel.NORMAL)
         
         # TODO Set up GroupKFold cross-validation
-        # If groups provided, use GroupKFold with N_SPLITS and RANDOM_STATE
         if groups is not None:
             cv = GroupKFold(n_splits=N_SPLITS)
-        # Else if no groups provided, use KFold with N_SPLITS, shuffle=True and RANDOM_STATE
         else:
             cv = KFold(n_splits=N_SPLITS, shuffle=True, random_state=RANDOM_STATE)
 
@@ -112,14 +108,12 @@ class Evaluator:
             val_preds = model.predict(X_val_fold)
             
             # Calculate metrics and append to fold_results
-            mse = mean_squared_error(y_val_fold, val_preds)
-            rmse = np.sqrt(mse)
-            r2 = r2_score(y_val_fold, val_preds)
-            metrics = {"mse":mse, "rmse":rmse, "r2_score":r2}
+            metrics = self.calculate_metrics(y_val_fold, val_preds)
             fold_results.append(metrics)
-            
+            rmse = metrics['rmse']
+            r2 = metrics['r2']
             # Logging
-            logger.info(f"Fold {fold}: mse: {mse}, rmse: {rmse}, r2_score: {r2}")
+            logger.info(f"Fold {fold}: rmse: {rmse:.4f}, r2_score: {r2:.4f}")
         
         # Aggregate results
         cv_results = {}
@@ -174,6 +168,7 @@ class Evaluator:
         # Extract results (GridSearchCV returns negative RMSE, convert to positive)
         
         # Logging
+        pass
         logger.success(f"Best RMSE: {best_score:.3f}")
         if logger.level >= LogLevel.NORMAL:
             print(f"  Best parameters: {best_params}")

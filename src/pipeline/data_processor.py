@@ -40,8 +40,8 @@ class DataProcessor:
         logger.substep("Loading Data")
         
         # TODO Load training and test data using DATA_PATH and file names defined in config
-        train_df = pd.read_csv(DATA_PATH / TRAIN_FILE)
-        test_df = pd.read_csv(DATA_PATH / TEST_FILE)
+        self.train_data = pd.read_csv(DATA_PATH / TRAIN_FILE)
+        self.test_data = pd.read_csv(DATA_PATH / TEST_FILE)
         
         # Logging
         with logger.indent():
@@ -110,9 +110,9 @@ class DataProcessor:
         
         # TODO Process both datasets city by city
             # Process training data for this city
-        new_train = forward_back_fill(train_df, train_df.columns.tolist(), "city", "date")
+        new_train = self.forward_back_fill(train_df, train_df.columns.tolist(), "city", "date")
             # Process test data for this city
-        new_test = forward_back_fill(test_df, test_df.columns.tolist(), "city", "date")
+        new_test = self.forward_back_fill(test_df, test_df.columns.tolist(), "city", "date")
         
         # TODO Check remaining missing values
         final_missing_train = new_train.isnull().sum().sum()
@@ -146,10 +146,10 @@ class DataProcessor:
         logger = get_logger()
         logger.substep("Dropping High Missing Columns")
 
-        threshold = 0,7
+        threshold = 0.7
         
         # TODO Find columns to drop based on training data
-        drop_cols = 100 * train_df.isnull().mean()[train_df.isnull().mean() > threshold].index
+        drop_cols = train_df.isnull().mean()[train_df.isnull().mean() > threshold].index.tolist()
 
         if len(drop_cols) > 0:
             # Logging
