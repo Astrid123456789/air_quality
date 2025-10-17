@@ -160,6 +160,14 @@ class Evaluator:
         
         # TODO Add hyperparameter optimization with geographic cross-validation (Workshop 3)
         # Set up cross-validation strategy
+        if groups is not None:
+            cv = GroupKFold(n_splits=N_SPLITS)
+            cv_split = cv.split(X, y, groups=groups)
+            logger.info(f"Using GroupKFold (n_splits={N_SPLITS}) for geographic CV")
+        else:
+            cv = KFold(n_splits=N_SPLITS, shuffle=True, random_state=42)
+            cv_split = cv.split(X, y)
+            logger.info(f"Using KFold (n_splits={N_SPLITS}, shuffle=True)")
         
         # Configure GridSearchCV with geographic cross-validation
         
