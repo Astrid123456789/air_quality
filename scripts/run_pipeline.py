@@ -137,9 +137,16 @@ def run_pipeline(args):
             # If no grid is defined, use default parameters
             if not param_grid:
                 logger.warning(f"No param grid defined for {args.model}, using default parameters")
+
             # If grid is defined, perform optimization        
                 # Perform hyperparameter optimization
-
+                best_model, best_params, best_score = evaluator.hyperparameter_optimization_cv(
+                    model=model,
+                    param_grid=param_grid,
+                    X=X,
+                    y=y,
+                    groups=groups
+                )
                     # Add MLflow hyperparameter optimization logging (Workshop 4)
 
                     # Use optimized model for final evaluation
