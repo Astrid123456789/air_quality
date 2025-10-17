@@ -186,6 +186,9 @@ class Evaluator:
         grid.fit(X, y)
         
         # Extract results (GridSearchCV returns negative RMSE, convert to positive)
+        best_model = grid.best_estimator_
+        best_params = grid.best_params_
+        best_score = -float(grid.best_score_)
         
         # Logging
         pass
