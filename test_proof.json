@@ -1,59 +1,41 @@
 {
-  "message": "{\"git_context\":{\"author_email\":\"astrid.flichy@gmail.com\",\"author_name\":\"Astrid\",\"commit_hash\":\"8a672b51c63f47c5d824905da3a51b96261a49f1\"},\"test_summary\":{\"execution_time\":25.07,\"passed_tests\":0,\"success_rate\":0.0,\"total_tests\":4},\"timestamp\":\"2025-10-10T13:45:25.940616\",\"version\":\"1.0\"}",
-  "message_hash": "BZGM5iiT5OhckRHtT/PVYJyH/kx6ObrAlE2ZOi0qfqM=",
+  "message": "{\"git_context\":{\"author_email\":\"astrid.flichy@gmail.com\",\"author_name\":\"Astrid\",\"commit_hash\":\"919c9710472ac4dd6a56180f56e1d80349fce8fa\"},\"test_summary\":{\"execution_time\":3.0,\"passed_tests\":1,\"success_rate\":100.0,\"total_tests\":1},\"timestamp\":\"2025-10-17T14:36:16.697903\",\"version\":\"1.0\"}",
+  "message_hash": "oIh1BukTY7kywlPib/X/JUVweurwhRV1Z5Jkl6ADodM=",
   "test_results": {
     "execution_metadata": {
-      "timestamp": "2025-10-10T13:45:25.860630",
-      "execution_time_seconds": 25.07,
+      "timestamp": "2025-10-17T14:36:16.681280",
+      "execution_time_seconds": 3.0,
       "runner_version": "Enhanced Test Runner v2.0",
       "environment": {
         "python_version": "3.11.13 (main, Sep 18 2025, 19:46:39) [Clang 20.1.4 ]",
         "platform": "Linux-5.15.153.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-        "working_directory": "/mnt/c/Users/astri/OneDrive/Bureau/UE D/air_quality_latest"
+        "working_directory": "/home/astrid/git/air_quality"
       }
     },
     "test_summary": {
-      "total_tests": 4,
-      "passed_tests": 0,
-      "failed_tests": 4,
-      "success_rate": 0.0,
+      "total_tests": 1,
+      "passed_tests": 1,
+      "failed_tests": 0,
+      "success_rate": 100.0,
       "test_modules": [
-        "data_processor",
-        "evaluator",
-        "feature_engineer",
-        "model_trainer"
+        "evaluator"
       ]
     },
     "detailed_results": {
-      "data_processor": false,
-      "evaluator": false,
-      "feature_engineer": false,
-      "model_trainer": false
+      "evaluator": true
     },
     "module_breakdown": {
-      "data_processor": {
-        "passed": false,
-        "status": "FAIL"
-      },
       "evaluator": {
-        "passed": false,
-        "status": "FAIL"
-      },
-      "feature_engineer": {
-        "passed": false,
-        "status": "FAIL"
-      },
-      "model_trainer": {
-        "passed": false,
-        "status": "FAIL"
+        "passed": true,
+        "status": "PASS"
       }
     }
   },
   "git_info": {
-    "commit_hash": "8a672b51c63f47c5d824905da3a51b96261a49f1",
+    "commit_hash": "919c9710472ac4dd6a56180f56e1d80349fce8fa",
     "author_name": "Astrid",
     "author_email": "astrid.flichy@gmail.com"
   },
-  "timestamp": "2025-10-10T13:45:25.940616",
+  "timestamp": "2025-10-17T14:36:16.697903",
   "signature_placeholder": "INSTRUCTOR_SIGNATURE_REQUIRED"
 }

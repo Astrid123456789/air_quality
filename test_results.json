@@ -1,48 +1,30 @@
 {
   "execution_metadata": {
-    "timestamp": "2025-10-10T13:45:25.860630",
-    "execution_time_seconds": 25.07,
+    "timestamp": "2025-10-17T14:36:16.681280",
+    "execution_time_seconds": 3.0,
     "runner_version": "Enhanced Test Runner v2.0",
     "environment": {
       "python_version": "3.11.13 (main, Sep 18 2025, 19:46:39) [Clang 20.1.4 ]",
       "platform": "Linux-5.15.153.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-      "working_directory": "/mnt/c/Users/astri/OneDrive/Bureau/UE D/air_quality_latest"
+      "working_directory": "/home/astrid/git/air_quality"
     }
   },
   "test_summary": {
-    "total_tests": 4,
-    "passed_tests": 0,
-    "failed_tests": 4,
-    "success_rate": 0.0,
+    "total_tests": 1,
+    "passed_tests": 1,
+    "failed_tests": 0,
+    "success_rate": 100.0,
     "test_modules": [
-      "data_processor",
-      "evaluator",
-      "feature_engineer",
-      "model_trainer"
+      "evaluator"
     ]
   },
   "detailed_results": {
-    "data_processor": false,
-    "evaluator": false,
-    "feature_engineer": false,
-    "model_trainer": false
+    "evaluator": true
   },
   "module_breakdown": {
-    "data_processor": {
-      "passed": false,
-      "status": "FAIL"
-    },
     "evaluator": {
-      "passed": false,
-      "status": "FAIL"
-    },
-    "feature_engineer": {
-      "passed": false,
-      "status": "FAIL"
-    },
-    "model_trainer": {
-      "passed": false,
-      "status": "FAIL"
+      "passed": true,
+      "status": "PASS"
     }
   }
 }
