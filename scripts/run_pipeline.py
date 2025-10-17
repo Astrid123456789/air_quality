@@ -228,6 +228,8 @@ def run_pipeline(args):
             'selected_features': selected_features,
             'execution_time': execution_time
         }
+    finally:
+        pass
     # TODO End MLflow run (Workshop 4)
 
 
