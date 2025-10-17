@@ -138,6 +138,7 @@ def run_pipeline(args):
             if not param_grid:
                 logger.warning(f"No param grid defined for {args.model}, using default parameters")
 
+            else:
             # If grid is defined, perform optimization        
                 # Perform hyperparameter optimization
                 best_model, best_params, best_score = evaluator.hyperparameter_optimization_cv(
