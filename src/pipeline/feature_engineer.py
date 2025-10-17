@@ -126,6 +126,7 @@ class FeatureEngineer:
         train_df = train_df.copy()
         test_df = test_df.copy()
         combined = pd.concat([train_df, test_df], axis=0, ignore_index=True)
+        combined[DATE_COL] = pd.to_datetime(combined[DATE_COL], errors="coerce")
         # TODO Initialize label encoder for consistent categorical-to-numerical conversion
         encoders = {}
         # TODO Identify categorical columns that need encoding
@@ -133,6 +134,8 @@ class FeatureEngineer:
                        if combined[col].dtype == 'object' 
                        and col != 'date' 
                        and col != TARGET_COL]
+
+        combined[DATE_COL] = combined[DATE_COL].view("int64")
     
         print("Categorical columns to encode:", categorical_columns)
         # These are high-cardinality categories (many unique values)
