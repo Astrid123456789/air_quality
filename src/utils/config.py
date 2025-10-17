@@ -63,6 +63,11 @@ MODEL_TYPES = ["linear", "xgboost", "lightgbm"]
 
 # Default hyperparameter grids for optimization
 DEFAULT_PARAM_GRIDS = {
+    "linear": { 
+        "fit_intercept": [True, False], 
+        "positive": [False, True], 
+    },
+
     "xgboost": {
         'n_estimators': [100],
         'max_depth': [3, 5, 7],
