@@ -166,6 +166,13 @@ def run_pipeline(args):
                         final_model.fit(X, y)
 
                         # Quick evaluation to get full cv_results format
+                        cv_scores = evaluator.cross_validate_model(
+                            model=final_model,
+                            X=X,
+                            y=y,
+                            groups=groups
+                        )
+
                         cv_results = {
                             "r2_mean":  float(np.mean(cv_scores)),
                             "r2_std":   float(np.std(cv_scores)),
