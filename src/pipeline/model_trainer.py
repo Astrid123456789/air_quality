@@ -109,7 +109,8 @@ class ModelTrainer:
         logger = get_logger()
         
         # TODO Make predictions using model
-        
+        predictions = model.predict(X)
+
         # Logging
         logger.success(f"Generated {len(predictions)} predictions")
         
