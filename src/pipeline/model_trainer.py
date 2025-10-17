@@ -12,7 +12,8 @@ from sklearn.linear_model import LinearRegression, Ridge, Lasso
 
 
 # TODO Import additional models (Workshop 3)
-
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
 
 # TODO Import MLflow (Workshop 4)
 
