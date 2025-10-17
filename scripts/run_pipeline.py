@@ -132,6 +132,8 @@ def run_pipeline(args):
         # TODO Add hyperparameter optimization logic (Workshop 3)
 
             # Get parameter grid for the model
+            param_grid = DEFAULT_PARAM_GRIDS.get(args.model, {})
+
             # If no grid is defined, use default parameters
             # If grid is defined, perform optimization        
                 # Perform hyperparameter optimization
