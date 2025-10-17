@@ -170,6 +170,17 @@ class Evaluator:
             logger.info(f"Using KFold (n_splits={N_SPLITS}, shuffle=True)")
         
         # Configure GridSearchCV with geographic cross-validation
+        verbose = 1 if logger.level >= LogLevel.VERBOSE else 0
+        grid = GridSearchCV(
+            estimator=model,
+            param_grid=param_grid,
+            scoring="neg_root_mean_squared_error",
+            cv=cv_split,
+            n_jobs=-1,
+            refit=True,
+            return_train_score=True,
+            verbose=verbose,
+        )
         
         # Fit GridSearchCV
         
