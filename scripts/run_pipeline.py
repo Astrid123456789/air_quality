@@ -59,9 +59,9 @@ def run_pipeline(args):
             logger.info(f"Features: {args.n_features}")
             logger.info(f"Selection method: {args.method}")
             logger.info(f"Optimization: {'Enabled' if args.optimize else 'Disabled'}")
-            logger.info(f"MLflow tracking: {'Enabled' if args.mlflow else 'Disabled'}")
-            if args.mlflow:
-                logger.info("Final model will be retrained on all data and registered in MLflow")
+            #logger.info(f"MLflow tracking: {'Enabled' if args.mlflow else 'Disabled'}")
+            #if args.mlflow:
+                #logger.info("Final model will be retrained on all data and registered in MLflow")
 
         # Initialize components
         processor = DataProcessor()
