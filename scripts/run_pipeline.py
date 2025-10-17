@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
 from pipeline import DataProcessor, FeatureEngineer, ModelTrainer
 from pipeline.evaluator import Evaluator
-from utils.config import MODEL_TYPES
+from utils.config import MODEL_TYPES, TARGET_COL, CITY_COL, N_SPLITS
 
 from utils.logger import get_logger, set_log_level, log_level_from_string, LogLevel
 from utils.utils import format_time_elapsed
@@ -120,8 +120,13 @@ def run_pipeline(args):
 
         if not args.optimize:
             with logger.timer("Cross-validation"):
-                break
                 # TODO Standard cross-validation using Evaluator
+                cv_scores = evaluator.cross_validate_model(
+                    model=model,
+                    X=X,
+                    y=y,
+                    groups=groups
+                )
 
         # TODO Add hyperparameter optimization logic (Workshop 3)
 
