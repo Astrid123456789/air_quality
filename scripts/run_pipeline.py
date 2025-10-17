@@ -129,6 +129,13 @@ def run_pipeline(args):
                     groups=groups
                 )
 
+                cv_results = {
+                    "r2_mean": float(np.mean(cv_scores)),
+                    "r2_std":  float(np.std(cv_scores)),
+                    "rmse_mean": None,
+                    "rmse_std":  None,
+                }
+
         # TODO Add hyperparameter optimization logic (Workshop 3)
 
             # Get parameter grid for the model
