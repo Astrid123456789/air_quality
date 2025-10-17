@@ -181,8 +181,9 @@ class Evaluator:
             return_train_score=True,
             verbose=verbose,
         )
-        
+
         # Fit GridSearchCV
+        grid.fit(X, y)
         
         # Extract results (GridSearchCV returns negative RMSE, convert to positive)
         
