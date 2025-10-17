@@ -171,7 +171,7 @@ class Evaluator:
         
         # Configure GridSearchCV with geographic cross-validation
         verbose = 1 if logger.level >= LogLevel.VERBOSE else 0
-        grid = GridSearchCV(
+        grid_search = GridSearchCV(
             estimator=model,
             param_grid=param_grid,
             scoring="neg_root_mean_squared_error",
@@ -183,12 +183,12 @@ class Evaluator:
         )
 
         # Fit GridSearchCV
-        grid.fit(X, y)
+        grid_search.fit(X, y)
         
         # Extract results (GridSearchCV returns negative RMSE, convert to positive)
-        best_model = grid.best_estimator_
-        best_params = grid.best_params_
-        best_score = -float(grid.best_score_)
+        best_model = grid_search.best_estimator_
+        best_params = grid_search.best_params_
+        best_score = -float(grid_search.best_score_)
         
         # Logging
         logger.success(f"Best RMSE: {best_score:.3f}")
