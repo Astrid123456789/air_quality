@@ -109,11 +109,13 @@ def run_pipeline(args):
         evaluator = Evaluator()
 
         # TODO Create model for cross-validation
-
+        trainer = ModelTrainer()
+        model = trainer.create_model("linear")
         # TODO Prepare data X, y, and groups for cross-validation
 
         if not args.optimize:
             with logger.timer("Cross-validation"):
+                break
                 # TODO Standard cross-validation using Evaluator
         # TODO Add hyperparameter optimization logic (Workshop 3)
 
@@ -219,6 +221,7 @@ def run_pipeline(args):
 
 
 def parse_arguments():
+    
     """Parse command line arguments."""
     
     parser = argparse.ArgumentParser(
