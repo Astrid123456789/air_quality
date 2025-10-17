@@ -135,6 +135,8 @@ def run_pipeline(args):
             param_grid = DEFAULT_PARAM_GRIDS.get(args.model, {})
 
             # If no grid is defined, use default parameters
+            if not param_grid:
+                logger.warning(f"No param grid defined for {args.model}, using default parameters")
             # If grid is defined, perform optimization        
                 # Perform hyperparameter optimization
 
