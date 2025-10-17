@@ -25,6 +25,7 @@ from utils.logger import get_logger, set_log_level, log_level_from_string, LogLe
 from utils.utils import format_time_elapsed
 
 # TODO Import parameter grids for optimization (Workshop 3)
+from utils.config import DEFAULT_PARAM_GRIDS
 
 # TODO Import MLflow (Workshop 4)
 
