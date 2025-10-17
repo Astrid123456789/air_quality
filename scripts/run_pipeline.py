@@ -121,7 +121,7 @@ def run_pipeline(args):
         if not args.optimize:
             with logger.timer("Cross-validation"):
                 # TODO Standard cross-validation using Evaluator
-                cv_scores = evaluator.cross_validate_model(
+                cv_results = evaluator.cross_validate_model(
                     model=model,
                     X=X,
                     y=y,
