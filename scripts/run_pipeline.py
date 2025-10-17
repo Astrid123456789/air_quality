@@ -137,30 +137,54 @@ def run_pipeline(args):
             # If no grid is defined, use default parameters
             if not param_grid:
                 logger.warning(f"No param grid defined for {args.model}, using default parameters")
-
+                cv_scores = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+                cv_results = {
+                    "r2_mean": float(np.mean(cv_scores)),
+                    "r2_std":  float(np.std(cv_scores)),
+                    "rmse_mean": None,
+                    "rmse_std":  None,
+                }
+                # Train final model on full data with default params
+                final_model = model
+                final_model.fit(X, y)
+            
             else:
-            # If grid is defined, perform optimization        
-                # Perform hyperparameter optimization
-                best_model, best_params, best_score = evaluator.hyperparameter_optimization_cv(
-                    model=model,
-                    param_grid=param_grid,
-                    X=X,
-                    y=y,
-                    groups=groups
-                )
-                    # Add MLflow hyperparameter optimization logging (Workshop 4)
-
-                    # Use optimized model for final evaluation
-                    final_model = trainer.create_model(args.model, **best_params)
-                    final_model.fit(X, y)
-
-                    # Quick evaluation to get full cv_results format
-                    cv_results = evaluator.cross_validate_model(
-                        model=final_model,
+                try:
+                # If grid is defined, perform optimization        
+                    # Perform hyperparameter optimization
+                    best_model, best_params, best_score = evaluator.hyperparameter_optimization_cv(
+                        model=model,
+                        param_grid=param_grid,
                         X=X,
                         y=y,
                         groups=groups
                     )
+                        # Add MLflow hyperparameter optimization logging (Workshop 4)
+
+                        # Use optimized model for final evaluation
+                        final_model = trainer.create_model(args.model, **best_params)
+                        final_model.fit(X, y)
+
+                        # Quick evaluation to get full cv_results format
+                        cv_results = {
+                            "r2_mean":  float(np.mean(cv_scores)),
+                            "r2_std":   float(np.std(cv_scores)),
+                            "rmse_mean": float(best_score),  
+                            "rmse_std":  None               
+                        }
+            
+                except Exception as e:
+                    logger.error(f"Optimization failed ({type(e).__name__}): {e}. Falling back to standard CV.")
+                    cv_scores = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+                    cv_results = {
+                        "r2_mean": float(np.mean(cv_scores)),
+                        "r2_std":  float(np.std(cv_scores)),
+                        "rmse_mean": None,
+                        "rmse_std":  None,
+                    }
+                    # Train final model on full data with default params
+                    final_model = model
+                    final_model.fit(X, y)
 
         # Extract results for compatibility
         mean_rmse = cv_results['rmse_mean']
