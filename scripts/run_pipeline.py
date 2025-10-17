@@ -150,6 +150,8 @@ def run_pipeline(args):
                     # Add MLflow hyperparameter optimization logging (Workshop 4)
 
                     # Use optimized model for final evaluation
+                    final_model = trainer.create_model(args.model, **best_params)
+                    final_model.fit(X, y)
 
                     # Quick evaluation to get full cv_results format
 
