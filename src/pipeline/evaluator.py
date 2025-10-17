@@ -191,7 +191,6 @@ class Evaluator:
         best_score = -float(grid.best_score_)
         
         # Logging
-        pass
         logger.success(f"Best RMSE: {best_score:.3f}")
         if logger.level >= LogLevel.NORMAL:
             print(f"  Best parameters: {best_params}")
