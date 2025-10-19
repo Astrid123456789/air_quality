@@ -111,7 +111,7 @@ def run_pipeline(args):
 
         # TODO Create model for cross-validation
         trainer = ModelTrainer()
-        model = trainer.create_model("linear")
+        model = trainer.create_model(args.model)
 
         # TODO Prepare data X, y, and groups for cross-validation
         feature_cols = engineer.get_feature_columns(train_features)
@@ -129,12 +129,8 @@ def run_pipeline(args):
                     groups=groups
                 )
 
-                cv_results = {
-                    "r2_mean": float(np.mean(cv_scores)),
-                    "r2_std":  float(np.std(cv_scores)),
-                    "rmse_mean": None,
-                    "rmse_std":  None,
-                }
+                cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+
 
         # TODO Add hyperparameter optimization logic (Workshop 3)
         final_model = model
@@ -146,12 +142,8 @@ def run_pipeline(args):
         if not param_grid:
             logger.warning(f"No param grid defined for {args.model}, using default parameters")
             cv_scores = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
-            cv_results = {
-                "r2_mean": float(np.mean(cv_scores)),
-                "r2_std":  float(np.std(cv_scores)),
-                "rmse_mean": None,
-                "rmse_std":  None,
-            }
+            cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+
             # Train final model on full data with default params
             final_model = model
             final_model.fit(X, y)
@@ -181,22 +173,14 @@ def run_pipeline(args):
                     groups=groups
                 )
 
-                cv_results = {
-                    "r2_mean":  float(np.mean(cv_scores)),
-                    "r2_std":   float(np.std(cv_scores)),
-                    "rmse_mean": float(best_score),  
-                    "rmse_std":  None               
-                }
+                cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+
             
             except Exception as e:
                 logger.error(f"Optimization failed ({type(e).__name__}): {e}. Falling back to standard CV.")
                 cv_scores = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
-                cv_results = {
-                    "r2_mean": float(np.mean(cv_scores)),
-                    "r2_std":  float(np.std(cv_scores)),
-                    "rmse_mean": None,
-                    "rmse_std":  None,
-                }
+                cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+
                 # Train final model on full data with default params
                 final_model = model
                 final_model.fit(X, y)
@@ -246,12 +230,8 @@ def run_pipeline(args):
 
         # Prepare results for summary
         model_name = args.model
-        cv_results_dict = {
-            'rmse_mean': mean_rmse,
-            'rmse_std': std_rmse,
-            'r2_mean': mean_r2,
-            'r2_std': std_r2
-        }
+        cv_results_dict = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+
 
         results = {
             'model_type': args.model,
