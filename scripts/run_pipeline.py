@@ -137,8 +137,6 @@ def run_pipeline(args):
                 }
 
         # TODO Add hyperparameter optimization logic (Workshop 3)
-
-        cv_results = None
         final_model = model
 
         # Get parameter grid for the model
@@ -157,8 +155,8 @@ def run_pipeline(args):
             # Train final model on full data with default params
             final_model = model
             final_model.fit(X, y)
-            
-        else:
+        
+        else:            
             try:
             # If grid is defined, perform optimization        
                 # Perform hyperparameter optimization
