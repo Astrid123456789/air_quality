@@ -126,12 +126,20 @@ class Evaluator:
             cv_results[f'{metric}_std'] = np.std(values)
         
         # TODO Add MLflow cross-validation metrics logging (Workshop 4)  
-            if mlflow.active_run():
+            
                  
             # Log cross-validation results (metrics only - must be numeric)
-            
+            cv_metrics = {
+                'cv_rmse_mean': rmse_mean,
+                'cv_rmse_std': rmse_std,
+                'cv_mae_mean': mae_mean, # Assuming MAE is calculated
+            }
             # Add additional CV metadata (metrics only - must be numeric)
-            
+            cv_metrics.update({
+                'cv_n_folds': int(cv_strategy) if isinstance(cv_strategy, int) else 0,
+                'cv_n_samples': X.shape[0],
+            })
+            mlflow.log_metrics(cv_metrics)
             
             # Log strategy as parameter (strings allowed in parameters)
 
