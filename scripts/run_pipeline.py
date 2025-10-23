@@ -40,7 +40,7 @@ def run_pipeline(args):
 
     # TODO Add MLflow setup and run start (Workshop 4)
         # Configuration MLflow simple
-        
+        run_name = f"{args.model.title()}-{args.method.upper()}-Opt{args.optimize}"
         # Create descriptive run name
         
         
