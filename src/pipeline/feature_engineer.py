@@ -328,6 +328,7 @@ class FeatureEngineer:
 
         # TODO Add MLflow feature selection logging (Workshop 4)       
             # Log feature selection parameters
+        if mlflow.active_run(): 
             mlflow.log_params({
                 'Selection_method': method,
                 'Total_features_available_before_selection': X.shape[1],
