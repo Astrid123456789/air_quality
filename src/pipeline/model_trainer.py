@@ -109,7 +109,7 @@ class ModelTrainer:
                 'model_type': model_type,
                 'n_features': X.shape[1],
                 'n_samples_train': X.shape[0],
-                *model_params 
+                **model_params 
             })
         model = self.create_model(model_type, **model_params)
         
