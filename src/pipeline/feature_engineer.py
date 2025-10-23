@@ -17,6 +17,7 @@ from utils.config import (
 from utils.logger import get_logger, LogLevel
 
 # TODO Import MLflow (Workshop 4)
+import mlflow
 
 class FeatureEngineer:
     """
