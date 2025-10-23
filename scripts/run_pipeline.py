@@ -42,8 +42,7 @@ def run_pipeline(args):
         # Configuration MLflow simple
         run_name = f"{args.model.title()}-{args.method.upper()}-Opt{args.optimize}"
         # Create descriptive run name
-        
-        
+         mlflow.start_run(run_name=run_name)
         # Set tags for Dataset and Model columns in MLflow UI
             # Dataset tags (for Dataset column)
             
