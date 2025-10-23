@@ -24,6 +24,9 @@ dev = [
     "jupyter~=1.1.1",
     "pytest~=8.4.1",
 ]
+mlops = [
+    "mlflow==3.1.1",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]

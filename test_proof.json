@@ -1,59 +1,41 @@
 {
-  "message": "{\"git_context\":{\"author_email\":\"astrid.flichy@gmail.com\",\"author_name\":\"Astrid\",\"commit_hash\":\"0f8bec3438439f92803ee53ae56ad176ff8eaae5\"},\"test_summary\":{\"execution_time\":3.03,\"passed_tests\":3,\"success_rate\":75.0,\"total_tests\":4},\"timestamp\":\"2025-10-17T15:12:55.979694\",\"version\":\"1.0\"}",
-  "message_hash": "fMS7BFLRkYRUAJn2FcR9+kEVo+bMu+I3up3W22Ih230=",
+  "message": "{\"git_context\":{\"author_email\":\"bendahmanmeryem1@gmail.com\",\"author_name\":\"Meryem\",\"commit_hash\":\"5c09d9f643853500ff44834500f45cf7ee4008f1\"},\"test_summary\":{\"execution_time\":0.11,\"passed_tests\":0,\"success_rate\":0.0,\"total_tests\":1},\"timestamp\":\"2025-10-23T21:08:08.869125\",\"version\":\"1.0\"}",
+  "message_hash": "DFdw1BMwZwA8NKbff49i6cf+mHHHNxxoULNr+D1+wzk=",
   "test_results": {
     "execution_metadata": {
-      "timestamp": "2025-10-17T15:12:55.973711",
-      "execution_time_seconds": 3.03,
+      "timestamp": "2025-10-23T21:08:08.817075",
+      "execution_time_seconds": 0.11,
       "runner_version": "Enhanced Test Runner v2.0",
       "environment": {
-        "python_version": "3.11.13 (main, Sep 18 2025, 19:46:39) [Clang 20.1.4 ]",
-        "platform": "Linux-5.15.153.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
-        "working_directory": "/home/astrid/git/air_quality"
+        "python_version": "3.11.13 (main, Sep 18 2025, 19:31:08) [Clang 20.1.4 ]",
+        "platform": "macOS-14.7.6-x86_64-i386-64bit",
+        "working_directory": "/Users/meryem/Desktop/FALL 2025/Intro to data science toolkit /air_quality_latest"
       }
     },
     "test_summary": {
-      "total_tests": 4,
-      "passed_tests": 3,
+      "total_tests": 1,
+      "passed_tests": 0,
       "failed_tests": 1,
-      "success_rate": 75.0,
+      "success_rate": 0.0,
       "test_modules": [
-        "evaluator",
-        "data_processor",
-        "model_trainer",
-        "feature_engineer"
+        "data_processor."
       ]
     },
     "detailed_results": {
-      "evaluator": true,
-      "data_processor": true,
-      "model_trainer": false,
-      "feature_engineer": true
+      "data_processor.": false
     },
     "module_breakdown": {
-      "evaluator": {
-        "passed": true,
-        "status": "PASS"
-      },
-      "data_processor": {
-        "passed": true,
-        "status": "PASS"
-      },
-      "model_trainer": {
+      "data_processor.": {
         "passed": false,
         "status": "FAIL"
-      },
-      "feature_engineer": {
-        "passed": true,
-        "status": "PASS"
       }
     }
   },
   "git_info": {
-    "commit_hash": "0f8bec3438439f92803ee53ae56ad176ff8eaae5",
-    "author_name": "Astrid",
-    "author_email": "astrid.flichy@gmail.com"
+    "commit_hash": "5c09d9f643853500ff44834500f45cf7ee4008f1",
+    "author_name": "Meryem",
+    "author_email": "bendahmanmeryem1@gmail.com"
   },
-  "timestamp": "2025-10-17T15:12:55.979694",
+  "timestamp": "2025-10-23T21:08:08.869125",
   "signature_placeholder": "INSTRUCTOR_SIGNATURE_REQUIRED"
 }
