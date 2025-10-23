@@ -322,6 +322,10 @@ def parse_arguments():
     )
 
     # TODO Add MLflow tracking argument --mlflow (Workshop 4)
+    parser.add_argument( 
+        '--mlflow', action='store_true',
+        help='Enable MLflow experiment tracking and model logging'
+    )
     
     return parser.parse_args()
 
