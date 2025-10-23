@@ -147,6 +147,7 @@ class Evaluator:
                 'cv_scoring': score,
                 'cv_strategy_type': 'KFold' 
             }
+            mlflow.log_params(cv_params)
 
         # Logging
         if logger.level >= LogLevel.NORMAL:
