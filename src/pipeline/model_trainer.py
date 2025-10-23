@@ -16,6 +16,7 @@ from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
 
 # TODO Import MLflow (Workshop 4)
+import mlflow
 
 from utils.config import MODEL_TYPES, RANDOM_STATE, TARGET_COL, CITY_COL
 from .evaluator import Evaluator
