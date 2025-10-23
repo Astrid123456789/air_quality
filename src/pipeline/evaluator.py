@@ -14,6 +14,8 @@ from sklearn.base import clone
 # TODO Import GridSearchCV for hyperparameter optimization (Workshop 3)
 from sklearn.model_selection import GridSearchCV
 # TODO Import MLflow (Workshop 4)
+# TODO Import MLflow (Workshop 4)
+import mlflow
 from utils.config import N_SPLITS, RANDOM_STATE
 from utils.logger import get_logger, LogLevel
 
