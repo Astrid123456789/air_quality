@@ -49,6 +49,7 @@ def run_pipeline(args):
             # Model tags (for Model column)
          mlflow.set_tag('Model Type', args.model)
             # Pipeline tags
+         mlflow.set_tag('Pipeline', 'Structured')
         
         # Log pipeline configuration parameters
     
