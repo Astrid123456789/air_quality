@@ -45,6 +45,8 @@ def run_pipeline(args):
          mlflow.start_run(run_name=run_name)
         # Set tags for Dataset and Model columns in MLflow UI
             # Dataset tags (for Dataset column)
+         mlflow.set_tag('Dataset', 'Air Quality')
+    
             
             # Model tags (for Model column)
             
