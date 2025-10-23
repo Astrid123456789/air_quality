@@ -28,6 +28,7 @@ from utils.utils import format_time_elapsed
 from utils.config import DEFAULT_PARAM_GRIDS
 
 # TODO Import MLflow (Workshop 4)
+import mlflow
 
 
 def run_pipeline(args):
