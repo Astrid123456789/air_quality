@@ -127,8 +127,9 @@ class Evaluator:
         
         # TODO Add MLflow cross-validation metrics logging (Workshop 4)  
             
-                 
             # Log cross-validation results (metrics only - must be numeric)
+        if mlflow.active_run():       
+
             cv_metrics = {
                 'cv_rmse_mean': rmse_mean,
                 'cv_rmse_std': rmse_std,
