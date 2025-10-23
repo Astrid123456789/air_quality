@@ -333,8 +333,8 @@ class FeatureEngineer:
                 'Total_features_available_before_selection': X.shape[1],
                 'Number_of_features_to_select': n_features if n_features is not None else (
                     N_FEATURES_SELECTKBEST if method == 'selectkbest' else N_FEATURES_RFE
-                )
-                'target_column': TARGET_COL,
+                ),
+                'target_column': TARGET_COL
 
             })
         
