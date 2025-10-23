@@ -94,8 +94,8 @@ RANDOM_STATE = 42
 # =============================================================================
 
 # TODO Add MLflow tracking configuration (Workshop 4)
-MLFLOW_EXPERIMENT_NAME = "air_quality_modeling"
-MLFLOW_TRACKING_URI = "./my_mlflow_data"
+MLFLOW_EXPERIMENT_NAME = "air_quality_ml"
+MLFLOW_TRACKING_URI = "./mlruns"
 # TODO_END
 
 # =============================================================================
