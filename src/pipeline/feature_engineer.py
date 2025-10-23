@@ -328,6 +328,13 @@ class FeatureEngineer:
 
         # TODO Add MLflow feature selection logging (Workshop 4)       
             # Log feature selection parameters
+            mlflow.log_params({
+                'Selection_method': method,
+                'Total_features_available_before_selection': X.shape[1],
+                'Number_of_features_to_select': n_features if n_features is not None else (
+                    N_FEATURES_SELECTKBEST if method == 'selectkbest' else N_FEATURES_RFE
+                )
+            })
         
         if method == 'selectkbest':
             return self.select_features_selectkbest(X, y, n_features)
