@@ -29,6 +29,8 @@ from utils.config import DEFAULT_PARAM_GRIDS
 
 # TODO Import MLflow (Workshop 4)
 import mlflow
+from mlflow.models.signature import infer_signature
+from mlflow.data.pandas_dataset import from_pandas
 
 
 def run_pipeline(args):
@@ -37,19 +39,21 @@ def run_pipeline(args):
     """
     start_time = time.time()
     logger = get_logger()
+    mlflow_run = None
 
     # TODO Add MLflow setup and run start (Workshop 4)
+    if args.mlflow:
         # Configuration MLflow simple
         run_name = f"{args.model.title()}-{args.method.upper()}-Opt{args.optimize}"
         # Create descriptive run name
-         mlflow.start_run(run_name=run_name)
+        mlflow.start_run(run_name=run_name)
         # Set tags for Dataset and Model columns in MLflow UI
             # Dataset tags (for Dataset column)
-         mlflow.set_tag('Dataset', 'Air Quality')
+        mlflow.set_tag('Dataset', 'Air Quality')
             # Model tags (for Model column)
-         mlflow.set_tag('Model Type', args.model)
+        mlflow.set_tag('Model Type', args.model)
             # Pipeline tags
-         mlflow.set_tag('Pipeline', 'Structured')
+        mlflow.set_tag('Pipeline', 'Structured')
         # Log pipeline configuration parameters
         mlflow.log_params({
                 'pipeline_start_time': time.strftime("%Y-%m-%d %H:%M:%S"),
@@ -82,6 +86,8 @@ def run_pipeline(args):
 
         # TODO Add MLflow dataset logging (Workshop 4)
             # Log dataset inline (no separate function)
+            train_dataset = from_pandas(train_data, source='data/train.csv')
+            mlflow.log_input(train_dataset, context='training')
             
             # Log dataset metrics
 
