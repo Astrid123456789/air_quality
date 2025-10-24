@@ -90,6 +90,8 @@ def run_pipeline(args):
             mlflow.log_input(train_dataset, context='training')
             
             # Log dataset metrics
+            mlflow.log_metric('training_samples', train_data.shape[0])
+            mlflow.log_metric('training_features_raw', train_data.shape[1])
 
         # Step 2: Feature Engineering
         logger.step("Feature Engineering", 2)
