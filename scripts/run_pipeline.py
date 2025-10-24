@@ -85,6 +85,7 @@ def run_pipeline(args):
             train_data, test_data = processor.load_and_preprocess()
 
         # TODO Add MLflow dataset logging (Workshop 4)
+        if args.mlflow:
             # Log dataset inline (no separate function)
             train_dataset = from_pandas(train_data, source='data/train.csv')
             mlflow.log_input(train_dataset, context='training')
@@ -114,9 +115,12 @@ def run_pipeline(args):
         logger.feature_info(f"Selected {len(selected_features)} features")
 
         # TODO Add MLflow feature selection logging (Workshop 4)
+        if args.mlflow:
+
             # Note: engineer.select_best_features() already logs MLflow parameters
             # We just log additional pipeline-specific info with different parameter names
-
+            mlflow.log_param('selected_feature_count', len(selected_features))
+            mlflow.log_param('selection_method', args.method)
         # Step 4: Cross-Validation Evaluation
         logger.step("Cross-Validation Evaluation", 4)
 
