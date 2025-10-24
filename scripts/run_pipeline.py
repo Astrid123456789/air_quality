@@ -238,10 +238,19 @@ def run_pipeline(args):
             model_registry_name = f"AirQuality_{args.model.title()}_Predictor"
                     # Step 4: Prepare input example for MLflow documentation
                     # This shows users what kind of data the model expects
+            input_example = X_clean.head(1)
                     
-                    # Log model to MLflow
-                    
+                    # Log model to MLflow 
                     # Register model in MLflow Model Registry
+            mlflow.sklearn.log_model(
+                sk_model=final_model,
+                artifact_path="model",
+                signature=model_signature,
+                input_example=input_example,
+                registered_model_name=model_registry_name,
+                #tags={'RMSE': f'{mean_rmse:.3f}'} # Optional: Add metrics as model tags
+            )
+            logger.info(f"Model logged and registered as: {model_registry_name}")
                             
                 
 
