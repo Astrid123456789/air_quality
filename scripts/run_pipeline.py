@@ -215,10 +215,19 @@ def run_pipeline(args):
 
         # TODO Add MLflow model and results logging (Workshop 4)
             # Log cross-validation results
-            
+        if args.mlflow:
             # Log the trained model (for Model column)
+            mlflow.log_metrics({
+                'cv_mean_rmse': mean_rmse,
+                'cv_std_rmse': std_rmse,
+                'cv_mean_r2': mean_r2,
+                'cv_std_r2': std_r2
+            })
                     # Step 1: Prepare clean data for MLflow (avoid warnings)
                     # Remove rows with missing values and convert to float64
+            X_clean = X.dropna().astype(np.float64)
+            y_clean = y.loc[X_clean.index] 
+            # Ensure target aligns with clean feature
 
                     # Step 2: Create MLflow model signature using clean data
                     # The signature describes input/output format for the model
