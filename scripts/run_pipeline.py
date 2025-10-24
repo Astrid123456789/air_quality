@@ -50,8 +50,13 @@ def run_pipeline(args):
          mlflow.set_tag('Model Type', args.model)
             # Pipeline tags
          mlflow.set_tag('Pipeline', 'Structured')
-        
         # Log pipeline configuration parameters
+        mlflow.log_params({
+                'pipeline_start_time': time.strftime("%Y-%m-%d %H:%M:%S"),
+                'n_splits_cv': N_SPLITS,
+                'optimization_enabled': args.optimize,
+                'log_level': args.log_level
+            })
     
     try:
         # Pipeline header with configuration
