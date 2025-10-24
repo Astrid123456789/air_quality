@@ -225,12 +225,14 @@ def run_pipeline(args):
             })
                     # Step 1: Prepare clean data for MLflow (avoid warnings)
                     # Remove rows with missing values and convert to float64
+                    # Ensure target aligns with clean feature
+
             X_clean = X.dropna().astype(np.float64)
             y_clean = y.loc[X_clean.index] 
-            # Ensure target aligns with clean feature
 
                     # Step 2: Create MLflow model signature using clean data
                     # The signature describes input/output format for the model
+            model_signature = infer_signature(X_clean, y_clean)
 
                     # Step 3: Create descriptive model name (appears in Model column)
 
