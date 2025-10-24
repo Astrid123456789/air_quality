@@ -131,21 +131,21 @@ class Evaluator:
         if mlflow.active_run():       
 
             cv_metrics = {
-                'cv_rmse_mean': rmse_mean,
-                'cv_rmse_std': rmse_std,
-                'cv_mae_mean': mae_mean, # Assuming MAE is calculated
+                'cv_rmse_mean':cv_results['rmse_mean'],
+                'cv_rmse_std': cv_results['rmse_std'],
+                'cv_mae_mean': cv_results['mae_mean'], # Assuming MAE is calculated
             }
             # Add additional CV metadata (metrics only - must be numeric)
             cv_metrics.update({
-                'cv_n_folds': int(cv_strategy) if isinstance(cv_strategy, int) else 0,
+                'cv_n_folds': N_SPLITS,
                 'cv_n_samples': X.shape[0],
             })
             mlflow.log_metrics(cv_metrics)
             
             # Log strategy as parameter (strings allowed in parameters)
             cv_params = {
-                'cv_scoring': score,
-                'cv_strategy_type': 'KFold' 
+                'cv_scoring': 'neg_root_mean_squared_error',
+                'cv_strategy_type': 'GroupKFold' if groups is not None else 'KFold'
             }
             mlflow.log_params(cv_params)
 

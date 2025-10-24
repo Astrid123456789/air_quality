@@ -149,7 +149,7 @@ def run_pipeline(args):
                     groups=groups
                 )
 
-                cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
+               # cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
 
 
         # TODO Add hyperparameter optimization logic (Workshop 3)
@@ -161,7 +161,6 @@ def run_pipeline(args):
         # If no grid is defined, use default parameters
         if not param_grid:
             logger.warning(f"No param grid defined for {args.model}, using default parameters")
-            cv_scores = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
             cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
 
             # Train final model on full data with default params
@@ -172,7 +171,7 @@ def run_pipeline(args):
             try:
             # If grid is defined, perform optimization        
                 # Perform hyperparameter optimization
-                best_model, best_params, best_score = evaluator.hyperparameter_optimization_cv(
+                best_model_cv, best_params, best_score = evaluator.hyperparameter_optimization_cv(
                     model=model,
                     param_grid=param_grid,
                     X=X,
@@ -188,19 +187,15 @@ def run_pipeline(args):
                 final_model.fit(X, y)
 
                 # Quick evaluation to get full cv_results format
-                cv_scores = evaluator.cross_validate_model(
+                cv_results = evaluator.cross_validate_model(
                     model=final_model,
                     X=X,
                     y=y,
                     groups=groups
                 )
-
-                cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
-
             
             except Exception as e:
                 logger.error(f"Optimization failed ({type(e).__name__}): {e}. Falling back to standard CV.")
-                cv_scores = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
                 cv_results = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
 
                 # Train final model on full data with default params
@@ -247,7 +242,7 @@ def run_pipeline(args):
                 artifact_path="model",
                 signature=model_signature,
                 input_example=input_example,
-                registered_model_name=model_registry_name,
+               # registered_model_name=model_registry_name,
                 #tags={'RMSE': f'{mean_rmse:.3f}'} # Optional: Add metrics as model tags
             )
             logger.info(f"Model logged and registered as: {model_registry_name}")
@@ -272,8 +267,7 @@ def run_pipeline(args):
 
         # Prepare results for summary
         model_name = args.model
-        cv_results_dict = evaluator.cross_validate_model(model=model, X=X, y=y, groups=groups)
-
+        cv_results_dict = cv_results
 
         results = {
             'model_type': args.model,
@@ -311,7 +305,8 @@ def run_pipeline(args):
             'execution_time': execution_time
         }
     finally:
-        pass
+        if args.mlflow:
+            mlflow.end_run()
     # TODO End MLflow run (Workshop 4)
 
 

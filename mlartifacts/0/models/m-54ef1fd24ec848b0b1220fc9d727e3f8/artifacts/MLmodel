@@ -1,0 +1,101 @@
+artifact_path: mlflow-artifacts:/0/models/m-54ef1fd24ec848b0b1220fc9d727e3f8/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.13
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+is_signature_from_type_hint: false
+mlflow_version: 3.1.1
+model_id: m-54ef1fd24ec848b0b1220fc9d727e3f8
+model_size_bytes: 133772
+model_uuid: m-54ef1fd24ec848b0b1220fc9d727e3f8
+prompts: null
+run_id: aa2489db6fa04c899f2ca66e4b78aa88
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "date", "required": true}, {"type": "double",
+    "name": "hour", "required": true}, {"type": "double", "name": "sulphurdioxide_so2_column_number_density",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_so2_column_number_density_amf",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_so2_slant_column_number_density",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_cloud_fraction",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_sensor_azimuth_angle",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_sensor_zenith_angle",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_solar_azimuth_angle",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_solar_zenith_angle",
+    "required": true}, {"type": "double", "name": "sulphurdioxide_so2_column_number_density_15km",
+    "required": true}, {"type": "double", "name": "month", "required": true}, {"type":
+    "double", "name": "carbonmonoxide_co_column_number_density", "required": true},
+    {"type": "double", "name": "carbonmonoxide_h2o_column_number_density", "required":
+    true}, {"type": "double", "name": "carbonmonoxide_cloud_height", "required": true},
+    {"type": "double", "name": "carbonmonoxide_sensor_altitude", "required": true},
+    {"type": "double", "name": "carbonmonoxide_sensor_azimuth_angle", "required":
+    true}, {"type": "double", "name": "carbonmonoxide_sensor_zenith_angle", "required":
+    true}, {"type": "double", "name": "carbonmonoxide_solar_azimuth_angle", "required":
+    true}, {"type": "double", "name": "carbonmonoxide_solar_zenith_angle", "required":
+    true}, {"type": "double", "name": "nitrogendioxide_no2_column_number_density",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_tropospheric_no2_column_number_density",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_stratospheric_no2_column_number_density",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_no2_slant_column_number_density",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_tropopause_pressure",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_absorbing_aerosol_index",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_cloud_fraction",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_sensor_altitude",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_sensor_azimuth_angle",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_sensor_zenith_angle",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_solar_azimuth_angle",
+    "required": true}, {"type": "double", "name": "nitrogendioxide_solar_zenith_angle",
+    "required": true}, {"type": "double", "name": "formaldehyde_tropospheric_hcho_column_number_density",
+    "required": true}, {"type": "double", "name": "formaldehyde_tropospheric_hcho_column_number_density_amf",
+    "required": true}, {"type": "double", "name": "formaldehyde_hcho_slant_column_number_density",
+    "required": true}, {"type": "double", "name": "formaldehyde_cloud_fraction", "required":
+    true}, {"type": "double", "name": "formaldehyde_solar_zenith_angle", "required":
+    true}, {"type": "double", "name": "formaldehyde_solar_azimuth_angle", "required":
+    true}, {"type": "double", "name": "formaldehyde_sensor_zenith_angle", "required":
+    true}, {"type": "double", "name": "formaldehyde_sensor_azimuth_angle", "required":
+    true}, {"type": "double", "name": "uvaerosolindex_absorbing_aerosol_index", "required":
+    true}, {"type": "double", "name": "uvaerosolindex_sensor_altitude", "required":
+    true}, {"type": "double", "name": "uvaerosolindex_sensor_azimuth_angle", "required":
+    true}, {"type": "double", "name": "uvaerosolindex_sensor_zenith_angle", "required":
+    true}, {"type": "double", "name": "uvaerosolindex_solar_azimuth_angle", "required":
+    true}, {"type": "double", "name": "uvaerosolindex_solar_zenith_angle", "required":
+    true}, {"type": "double", "name": "ozone_o3_column_number_density", "required":
+    true}, {"type": "double", "name": "ozone_o3_column_number_density_amf", "required":
+    true}, {"type": "double", "name": "ozone_o3_slant_column_number_density", "required":
+    true}, {"type": "double", "name": "ozone_o3_effective_temperature", "required":
+    true}, {"type": "double", "name": "ozone_cloud_fraction", "required": true}, {"type":
+    "double", "name": "ozone_sensor_azimuth_angle", "required": true}, {"type": "double",
+    "name": "ozone_sensor_zenith_angle", "required": true}, {"type": "double", "name":
+    "ozone_solar_azimuth_angle", "required": true}, {"type": "double", "name": "ozone_solar_zenith_angle",
+    "required": true}, {"type": "double", "name": "cloud_cloud_fraction", "required":
+    true}, {"type": "double", "name": "cloud_cloud_top_pressure", "required": true},
+    {"type": "double", "name": "cloud_cloud_top_height", "required": true}, {"type":
+    "double", "name": "cloud_cloud_base_pressure", "required": true}, {"type": "double",
+    "name": "cloud_cloud_base_height", "required": true}, {"type": "double", "name":
+    "cloud_cloud_optical_depth", "required": true}, {"type": "double", "name": "cloud_surface_albedo",
+    "required": true}, {"type": "double", "name": "cloud_sensor_azimuth_angle", "required":
+    true}, {"type": "double", "name": "cloud_sensor_zenith_angle", "required": true},
+    {"type": "double", "name": "cloud_solar_azimuth_angle", "required": true}, {"type":
+    "double", "name": "cloud_solar_zenith_angle", "required": true}, {"type": "double",
+    "name": "year", "required": true}, {"type": "double", "name": "day", "required":
+    true}, {"type": "double", "name": "quarter", "required": true}, {"type": "double",
+    "name": "week", "required": true}, {"type": "double", "name": "dayofweek", "required":
+    true}, {"type": "double", "name": "is_weekend", "required": true}, {"type": "double",
+    "name": "is_month_start", "required": true}, {"type": "double", "name": "is_month_end",
+    "required": true}, {"type": "double", "name": "location", "required": true}]'
+  outputs: '[{"type": "double", "name": "pm2_5", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-10-24 10:18:28.333149'

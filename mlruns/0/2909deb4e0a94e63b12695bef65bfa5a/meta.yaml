@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/2909deb4e0a94e63b12695bef65bfa5a/artifacts
+end_time: 1761299569606
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2909deb4e0a94e63b12695bef65bfa5a
+run_name: Linear-SELECTKBEST-OptFalse
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761299555302
+status: 3
+tags: []
+user_id: meryem
