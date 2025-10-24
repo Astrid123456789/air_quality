@@ -235,7 +235,7 @@ def run_pipeline(args):
             model_signature = infer_signature(X_clean, y_clean)
 
                     # Step 3: Create descriptive model name (appears in Model column)
-
+            model_registry_name = f"AirQuality_{args.model.title()}_Predictor"
                     # Step 4: Prepare input example for MLflow documentation
                     # This shows users what kind of data the model expects
                     
