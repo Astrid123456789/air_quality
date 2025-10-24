@@ -136,6 +136,8 @@ def run_pipeline(args):
         X = train_features[feature_cols]
         y = train_features[TARGET_COL]
         groups = train_features[CITY_COL]
+       
+        cv_results = {}
 
         if not args.optimize:
             with logger.timer("Cross-validation"):
@@ -178,6 +180,8 @@ def run_pipeline(args):
                     groups=groups
                 )
                 # Add MLflow hyperparameter optimization logging (Workshop 4)
+                if args.mlflow:
+                    mlflow.log_params({f'best_param_{k}': v for k, v in best_params.items()})
 
                 # Use optimized model for final evaluation
                 final_model = trainer.create_model(args.model, **best_params)
