@@ -207,14 +207,48 @@ Although XGBoost delivered slightly improved accuracy compared to linear baselin
 Deploy a **tuned XGBoost model** as the production baseline for air-quality forecasting, supported by MLflow for experiment tracking and version control.
 LightGBM can serve as an alternative when lower latency or resource constraints are a priority.
 
-
 ## Key Findings
 
-[Summarize your main analytical findings here:
-- Key patterns discovered in the data
-- Most important features for prediction
-- Model performance comparisons
-- Business insights and recommendations]
+### Key Patterns in the Data
+
+* **Temporal patterns:**
+  PM2.5 concentrations display **distinct seasonal and daily variation** across all four cities.
+
+  * In **Lagos**, values gradually rise toward late 2023 and early 2024, with several sharp pollution spikes exceeding 300 µg/m³.
+  * **Nairobi** remains comparatively stable with low PM2.5 most of the year, though isolated peaks appear mid-2023.
+  * **Bujumbura** shows a clear **upward trend from November 2023 to January 2024**, reflecting a gradual deterioration in air quality.
+  * **Kampala** exhibits persistent moderate levels (20–80 µg/m³) and occasional peaks above 100 µg/m³, indicating sustained background pollution.
+* **Geographic differences:**
+  Cities differ in both scale and variability—urban centers with denser data (Lagos, Kampala) display stronger trends and higher dispersion, while sparse cities (Bujumbura) show noisier, less stable patterns.
+
+### Most Important Features
+
+Feature selection (RFE) and XGBoost importance analyses consistently identified the following predictors as dominant:
+
+* **Nitrogen dioxide (NO₂) variables:** the most influential group, reflecting strong links between combustion emissions and PM2.5 formation.
+* **Sulphur dioxide (SO₂) columns:** secondary but significant drivers, likely tied to industrial and traffic sources.
+* **Formaldehyde and ozone** metrics: additional chemical indicators of photochemical pollution.
+* **Cloud and albedo features:** influencing dispersion and accumulation of particulates.
+  These variables align with the physical and atmospheric mechanisms that control fine particulate matter levels.
+
+### Model Performance Comparison
+
+* Both **Linear Regression** and **XGBoost** achieved comparable results:
+
+  * Linear Regression → RMSE = 27.65 µg/m³, MAE = 14.32 µg/m³, R² = 0.0796
+  * XGBoost → RMSE = 27.96 µg/m³, MAE = 14.69 µg/m³, R² = 0.0783
+* The **Actual vs Predicted** and **Residual plots** show that most predictions cluster close to the ideal line, though high PM2.5 values are slightly underpredicted, typical of regression models trained on imbalanced targets.
+* Residuals are centered around zero, confirming that no strong bias remains after fitting.
+
+### Business Insights and Recommendations
+
+* Pollution peaks in **Lagos and Kampala** indicate higher exposure risk and the need for **targeted public-health alerts**.
+* Despite modest R², the models reliably capture **relative trends**, making them suitable for **operational early warning systems** rather than exact concentration forecasting.
+* Improving coverage in **Bujumbura and Nairobi** would enhance regional model robustness.
+* Future work should incorporate **lagged pollutant values** and **meteorological data** (temperature, humidity, wind) to strengthen temporal forecasting accuracy.
+
+Together, these findings connect technical outcomes to actionable insights for urban air-quality monitoring and public-health decision-making.
+
 
 ## Model Performance
 
