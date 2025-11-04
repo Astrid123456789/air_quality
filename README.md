@@ -17,11 +17,78 @@ The work is grounded in the **Evaluation phase of the CRISP-DM framework**, wher
 
 ## Dataset Description
 
-[Provide details about your dataset:
-- Data source and collection period
-- Number of records and features
-- Key variables and their meanings
-- Data quality notes]
+The dataset used in this project was **provided by the course** and represents an integrated collection of environmental and atmospheric measurements across **four major African cities**. It forms the basis for developing and evaluating machine learning models that predict **PM2.5 concentration levels**, a key air-quality metric linked to respiratory health and urban livability.
+
+### Source and Collection Period
+
+The data covers the period **from January 1, 2023, to February 26, 2024**, capturing daily and hourly observations from monitoring sites located in:
+
+* **Lagos (Nigeria)**
+* **Nairobi (Kenya)**
+* **Bujumbura (Burundi)**
+* **Kampala (Uganda)**
+
+### Dataset Structure
+
+* **Training data shape (before cleaning):** 8,071 rows × 80 columns
+* **Test data shape:** 2,783 rows × 79 columns
+* **After cleaning:** 8,071 rows × **73 columns** (columns with >70% missing values dropped)
+* **Geographic granularity:** city and site level (`city`, `country`, `site_id`, `site_latitude`, `site_longitude`)
+* **Temporal granularity:** daily/hourly observations (`date`, `hour`)
+
+### Dropped Columns
+
+Columns removed due to excessive missing data (>70%):
+
+```
+['uvaerosollayerheight_aerosol_height',
+ 'uvaerosollayerheight_aerosol_pressure',
+ 'uvaerosollayerheight_aerosol_optical_depth',
+ 'uvaerosollayerheight_sensor_zenith_angle',
+ 'uvaerosollayerheight_sensor_azimuth_angle',
+ 'uvaerosollayerheight_solar_azimuth_angle',
+ 'uvaerosollayerheight_solar_zenith_angle']
+```
+
+### Missing Data Summary
+
+After cleaning:
+
+* **Train missing values:** 0
+* **Test missing values:** 51,323 (handled by forward/backward imputation per city)
+
+### Record Distribution by City
+
+| City      | Number of Measurements |
+| --------- | ---------------------- |
+| Bujumbura | 123                    |
+| Kampala   | 5,596                  |
+| Lagos     | 852                    |
+| Nairobi   | 1,500                  |
+
+### Key Variables
+
+| Variable                                          | Description                                                                               |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `pm2_5`                                           | Target variable — particulate matter ≤2.5µm concentration (µg/m³)                         |
+| `city`, `country`                                 | Geographic identifiers used for GroupKFold cross-validation                               |
+| `date`, `hour`                                    | Temporal identifiers for trend analysis and feature engineering                           |
+| `site_id`, `site_latitude`, `site_longitude`      | Site-level geolocation metadata                                                           |
+| `sulphurdioxide_so2_*`                            | Satellite-based SO₂ column density and correction parameters                              |
+| `cloud_*`                                         | Cloud coverage, pressure, height, optical depth, albedo, and viewing angles               |
+| (Other atmospheric and meteorological predictors) | Variables representing chemical and meteorological conditions influencing PM2.5 formation |
+
+### Data Quality Notes
+
+* **Column pruning:** Features with >70% missing data were dropped to prevent model bias and instability.
+* **Imputation:** City-wise forward and backward fills were used to maintain temporal coherence.
+* **No missing values remained** in the cleaned training data.
+* **Class imbalance:** Not severe, though Kampala dominates with ~70% of records.
+* **Outliers:** Retained to preserve the natural variability of PM2.5 levels.
+* **Temporal consistency:** Continuous time series per city allow safe extraction of lagged and cyclical temporal features.
+
+This dataset thus provides a **robust, multi-dimensional foundation** for evaluating how machine learning models generalize across distinct urban environments in sub-Saharan Africa.
+
 
 ## Project Structure
 
