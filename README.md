@@ -4,7 +4,16 @@ A machine learning pipeline for air quality prediction using time-series data wi
 
 ## Overview
 
-[Describe your project objectives and business context here]
+This project implements a complete, **CRISP-DM–aligned machine learning pipeline** for forecasting **PM2.5 air pollution levels** across several major African cities. The overarching goal is to transform raw environmental and temporal data into actionable insights that can inform **public-health policies and urban management strategies**.
+
+The project’s objectives are twofold:
+
+1. **Technical Objective:** Develop and evaluate multiple predictive models (Linear Regression, XGBoost, and LightGBM) capable of estimating PM2.5 concentrations with minimal bias and variance, while ensuring robustness across different geographic regions.
+
+2. **Business Objective:** Provide decision-makers—such as municipal authorities and health agencies with **reliable short-term air-quality forecasts**. These forecasts enable timely public advisories (e.g., for schools, transport, outdoor activities) and help prioritize mitigation efforts like traffic management and street cleaning.
+
+The work is grounded in the **Evaluation phase of the CRISP-DM framework**, where model performance is not only quantified through metrics such as RMSE and R² but also interpreted in terms of **real-world impact** and **policy relevance**. Rather than optimizing for accuracy alone, the emphasis is on **actionable reliability** whether predictions are consistent and informative enough to guide meaningful interventions.
+
 
 ## Dataset Description
 
