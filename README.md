@@ -338,10 +338,6 @@ This methodology ensured that the pipeline remained **consistent, explainable, a
 
 ## Authors
 
-[Add team member names and task distribution:
-- **Student 1 Name**: [Specific tasks and contributions]
-- **Student 2 Name**: [Specific tasks and contributions]
+- **BENDAHMAN Meryem**: Full notebook, FeatureEngineer, Evaluator, MLOps introduction, debugging
+- **FLICHY Astrid**: Full notebook, DataProcessor, ModelTrainer, Hyperparameter optimization, README
 
-Example:
-- **Alice Dupont**: Data preprocessing, feature engineering, model evaluation
-- **Bob Martin**: Model training, hyperparameter optimization, documentation]
