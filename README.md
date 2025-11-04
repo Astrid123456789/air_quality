@@ -252,19 +252,89 @@ Together, these findings connect technical outcomes to actionable insights for u
 
 ## Model Performance
 
-[Document your model results:
-- Performance metrics (RMSE, MAE, R²)
-- Cross-validation results
-- Feature importance rankings
-- Comparison between different models]
+### Performance Metrics and Cross-Validation
+
+Model evaluation was carried out using **GroupKFold cross-validation** to prevent geographic data leakage between cities.
+The results below summarize the averaged validation scores recorded in MLflow:
+
+| Model                 | CV RMSE (mean) | CV RMSE (std) | CV MAE (mean) | CV R² (mean) |
+| --------------------- | -------------- | ------------- | ------------- | ------------ |
+| **Linear Regression** | 27.65 µg/m³    | 14.45         | 14.32 µg/m³   | 0.0796       |
+| **XGBoost**           | 27.96 µg/m³    | 15.52         | 14.69 µg/m³   | 0.0783       |
+
+Both models produced **comparable performance**, indicating that PM2.5 levels in the dataset follow largely linear trends with limited nonlinear effects.
+The low but positive R² (~0.08) confirms that while variability is high, the models successfully capture the main pollution patterns and city-level differences.
+
+### Feature Importance Ranking
+
+Feature ranking derived from **Recursive Feature Elimination (RFE)** and **XGBoost feature importance** consistently highlighted the following predictors:
+
+| Rank | Feature                                                   | Description                                             |
+| ---- | --------------------------------------------------------- | ------------------------------------------------------- |
+| 1    | `nitrogendioxide_stratospheric_no2_column_number_density` | Strong indicator of combustion-related emissions        |
+| 2    | `nitrogendioxide_no2_slant_column_number_density`         | Correlates with industrial and vehicular activity       |
+| 3    | `nitrogendioxide_tropospheric_no2_column_number_density`  | Atmospheric NO₂ driver of particulate formation         |
+| 4    | `sulphurdioxide_so2_column_number_density_15km`           | Proxy for industrial and long-range transport emissions |
+| 5    | `formaldehyde_hcho_slant_column_number_density`           | Chemical precursor of secondary aerosols                |
+| 6    | `ozone_o3_column_number_density`                          | Represents photochemical oxidation conditions           |
+| 7    | `carbonmonoxide_co_column_number_density`                 | Tracer of incomplete combustion                         |
+| 8    | `cloud_surface_albedo`                                    | Reflects meteorological dispersion effects              |
+
+These results reinforce the dominance of **NO₂ and SO₂** as primary drivers of PM2.5, supported by formaldehyde, ozone, and cloud parameters that influence accumulation and photochemical transformation.
+
+### Comparison Between Models
+
+* **Linear Regression**: Provides a transparent and fast baseline; performs competitively given the modest dataset size.
+* **XGBoost**: Slightly higher stability and robustness to feature interactions but with minimal gain in overall accuracy.
+* **Residual analysis** confirms that both models predict moderate concentrations well but tend to **underestimate high-pollution events**, suggesting that additional temporal and meteorological features could help capture extremes.
+
+Overall, both models deliver consistent and interpretable results, forming a solid baseline for future optimization and deployment.
+
 
 ## Methodology
 
-[Describe your analytical approach:
-- Data preprocessing steps
-- Feature engineering strategy
-- Model selection rationale
-- Evaluation methodology]
+### Data Preprocessing
+
+* The raw dataset contained 8,071 training records and 2,783 test records with 80 variables.
+* Columns with **over 70% missing values** (seven aerosol height–related fields) were removed, resulting in **73 retained features**.
+* Missing values in the remaining columns were handled using **city-wise forward and backward imputation**, ensuring continuity within each geographic group.
+* After cleaning, **no missing values remained in the training set** and 51,323 were imputed in the test data.
+* Data were split using **GroupKFold cross-validation** by `city` to prevent spatial data leakage.
+
+### Feature Engineering
+
+* Extracted **temporal features** (`year`, `month`, `day`, `hour`, `weekday`, `quarter`) from the `date` variable to capture seasonal and diurnal cycles.
+* Encoded categorical variables such as `city` and `country` numerically.
+* Applied **feature selection** techniques:
+
+  * **SelectKBest** using `f_regression` to retain the top 15 most predictive variables.
+  * **Recursive Feature Elimination (RFE)** for interpretability and dimensionality reduction.
+* Created derived indicators combining meteorological and chemical properties (e.g., mean pollutant columns).
+
+### Model Selection Rationale
+
+* **Linear Regression** was implemented as a transparent baseline to quantify the linear relationships between predictors and PM2.5.
+* **XGBoost** and **LightGBM** were introduced as advanced models capable of capturing nonlinear interactions and feature dependencies.
+* The parameter grids defined for both boosting models focused on moderate learning rates and tree depths (`max_depth` = 3–7, `learning_rate` = 0.01–0.2, `n_estimators` = 100) to balance bias and variance.
+* Model selection emphasized **interpretability, stability across cities, and reproducibility** through MLflow logging.
+
+### Evaluation Methodology
+
+* All models were evaluated using **GroupKFold (n=4)**, ensuring that data from each city formed a unique fold for validation.
+* Performance metrics recorded:
+
+  * **Root Mean Squared Error (RMSE)**
+  * **Mean Absolute Error (MAE)**
+  * **R² score**
+* Additional visual diagnostics included:
+
+  * **Actual vs Predicted** plots to assess fit quality.
+  * **Residual plots** to detect bias or heteroscedasticity.
+  * **Feature importance graphs** (from RFE and XGBoost) to identify dominant predictors.
+* **MLflow** tracked all parameters, metrics, and artifacts, enabling full experiment reproducibility.
+
+This methodology ensured that the pipeline remained **consistent, explainable, and aligned with CRISP-DM standards**, from data cleaning through evaluation.
+
 
 ## Authors
 
