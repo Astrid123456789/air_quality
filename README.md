@@ -92,7 +92,7 @@ This dataset thus provides a **robust, multi-dimensional foundation** for evalua
 
 ## Project Structure
 
-The repository follows a **modular and reproducible design**, aligning with the **CRISP-DM framework** and standard **MLOps** practices. Each component handles a specific phase of the machine learning workflow — from data processing to model evaluation and experiment tracking.
+The repository follows a **modular and reproducible design**, aligning with the **CRISP-DM framework** and standard **MLOps** practices. Each component handles a specific phase of the machine learning workflow - from data processing to model evaluation and experiment tracking.
 
 ```
 air_quality-main/
@@ -100,7 +100,7 @@ air_quality-main/
 │  ├─ pipeline/
 │  │  ├─ data_processor.py      # Handles data loading, missing-value treatment, and geographic GroupKFold creation
 │  │  ├─ feature_engineer.py    # Generates temporal features and performs feature selection (SelectKBest, RFE)
-│  │  ├─ model_trainer.py       # Defines ML models (Linear, Ridge, Lasso, XGBoost, LightGBM) and training logic
+│  │  ├─ model_trainer.py       # Defines ML models (Linear, XGBoost, LightGBM) and training logic
 │  │  └─ evaluator.py           # Computes performance metrics, cross-validation, and MLflow logging
 │  └─ utils/
 │     ├─ config.py              # Centralized configuration (paths, thresholds, CV parameters, MLflow URI)
@@ -114,7 +114,7 @@ air_quality-main/
 │
 ├─ tests/                       # Component-level tests ensuring reliability of preprocessing, features, and models
 │
-├─ data/                        # Folder for training and test CSVs (excluded from Git for privacy)
+├─ data/                        # Folder for training and test CSVs (excluded from Git for privacy and faster computing)
 │
 ├─ mlruns/ and mlflow.db        # Local MLflow tracking storage (experiments, parameters, metrics, artifacts)
 │
