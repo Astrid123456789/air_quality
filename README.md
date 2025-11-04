@@ -92,7 +92,46 @@ This dataset thus provides a **robust, multi-dimensional foundation** for evalua
 
 ## Project Structure
 
-[Describe your project organization here]
+The repository follows a **modular and reproducible design**, aligning with the **CRISP-DM framework** and standard **MLOps** practices. Each component handles a specific phase of the machine learning workflow — from data processing to model evaluation and experiment tracking.
+
+```
+air_quality-main/
+├─ src/
+│  ├─ pipeline/
+│  │  ├─ data_processor.py      # Handles data loading, missing-value treatment, and geographic GroupKFold creation
+│  │  ├─ feature_engineer.py    # Generates temporal features and performs feature selection (SelectKBest, RFE)
+│  │  ├─ model_trainer.py       # Defines ML models (Linear, Ridge, Lasso, XGBoost, LightGBM) and training logic
+│  │  └─ evaluator.py           # Computes performance metrics, cross-validation, and MLflow logging
+│  └─ utils/
+│     ├─ config.py              # Centralized configuration (paths, thresholds, CV parameters, MLflow URI)
+│     ├─ evaluation_utils.py    # Additional analysis tools (WHO threshold comparisons, visualization)
+│     ├─ logger.py              # Logging utilities for structured and readable console output
+│     └─ utils.py               # General-purpose helpers (plotting, file management)
+│
+├─ scripts/
+│  ├─ run_pipeline.py           # End-to-end pipeline script (training, evaluation, MLflow integration)
+│  └─ run_tests.py              # Unit test launcher with cryptographic proof generation
+│
+├─ tests/                       # Component-level tests ensuring reliability of preprocessing, features, and models
+│
+├─ data/                        # Folder for training and test CSVs (excluded from Git for privacy)
+│
+├─ mlruns/ and mlflow.db        # Local MLflow tracking storage (experiments, parameters, metrics, artifacts)
+│
+├─ mlartifacts/                 # Serialized trained models and associated metadata
+│
+└─ notebooks/                   # Optional exploratory notebooks used during development and validation
+```
+
+### Design Rationale
+
+* **Separation of concerns:** Each module performs a single, well-defined role, simplifying debugging and future extensions.
+* **Reproducibility:** The entire pipeline can be rerun from raw data to logged model using a single script (`run_pipeline.py`).
+* **Scalability:** New models, features, or evaluation metrics can be added without modifying the overall structure.
+* **Experiment traceability:** MLflow ensures every run is versioned and reproducible, supporting transparent model evaluation.
+
+This structure supports both **technical robustness** and **business interpretability**, ensuring that every phase—from data preparation to evaluation—can be audited and communicated effectively to stakeholders.
+
 
 ## Installation
 
