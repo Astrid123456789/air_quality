@@ -4,7 +4,7 @@ A machine learning pipeline for air quality prediction using time-series data wi
 
 ## Overview
 
-This project implements a complete, **CRISP-DM–aligned machine learning pipeline** for forecasting **PM2.5 air pollution levels** across several major African cities. The overarching goal is to transform raw environmental and temporal data into actionable insights that can inform **public-health policies and urban management strategies**.
+This project implements a complete, **CRISP-DM aligned machine learning pipeline** for forecasting **PM2.5 air pollution levels** across several major African cities. The overarching goal is to transform raw environmental and temporal data into actionable insights that can inform **public-health policies and urban management strategies**.
 
 The project’s objectives are twofold:
 
@@ -217,7 +217,7 @@ LightGBM can serve as an alternative when lower latency or resource constraints 
   * In **Lagos**, values gradually rise toward late 2023 and early 2024, with several sharp pollution spikes exceeding 300 µg/m³.
   * **Nairobi** remains comparatively stable with low PM2.5 most of the year, though isolated peaks appear mid-2023.
   * **Bujumbura** shows a clear **upward trend from November 2023 to January 2024**, reflecting a gradual deterioration in air quality.
-  * **Kampala** exhibits persistent moderate levels (20–80 µg/m³) and occasional peaks above 100 µg/m³, indicating sustained background pollution.
+  * **Kampala** exhibits persistent moderate levels (20 80 µg/m³) and occasional peaks above 100 µg/m³, indicating sustained background pollution.
 * **Geographic differences:**
   Cities differ in both scale and variability—urban centers with denser data (Lagos, Kampala) display stronger trends and higher dispersion, while sparse cities (Bujumbura) show noisier, less stable patterns.
 
@@ -296,7 +296,7 @@ Overall, both models deliver consistent and interpretable results, forming a sol
 ### Data Preprocessing
 
 * The raw dataset contained 8,071 training records and 2,783 test records with 80 variables.
-* Columns with **over 70% missing values** (seven aerosol height–related fields) were removed, resulting in **73 retained features**.
+* Columns with **over 70% missing values** (seven aerosol height related fields) were removed, resulting in **73 retained features**.
 * Missing values in the remaining columns were handled using **city-wise forward and backward imputation**, ensuring continuity within each geographic group.
 * After cleaning, **no missing values remained in the training set** and 51,323 were imputed in the test data.
 * Data were split using **GroupKFold cross-validation** by `city` to prevent spatial data leakage.
@@ -315,7 +315,7 @@ Overall, both models deliver consistent and interpretable results, forming a sol
 
 * **Linear Regression** was implemented as a transparent baseline to quantify the linear relationships between predictors and PM2.5.
 * **XGBoost** and **LightGBM** were introduced as advanced models capable of capturing nonlinear interactions and feature dependencies.
-* The parameter grids defined for both boosting models focused on moderate learning rates and tree depths (`max_depth` = 3–7, `learning_rate` = 0.01–0.2, `n_estimators` = 100) to balance bias and variance.
+* The parameter grids defined for both boosting models focused on moderate learning rates and tree depths (`max_depth` = 3 7, `learning_rate` = 0.01 0.2, `n_estimators` = 100) to balance bias and variance.
 * Model selection emphasized **interpretability, stability across cities, and reproducibility** through MLflow logging.
 
 ### Evaluation Methodology
@@ -338,10 +338,6 @@ This methodology ensured that the pipeline remained **consistent, explainable, a
 
 ## Authors
 
-[Add team member names and task distribution:
-- **Student 1 Name**: [Specific tasks and contributions]
-- **Student 2 Name**: [Specific tasks and contributions]
+- **BENDAHMAN Meryem**: Full notebook, FeatureEngineer, Evaluator, MLOps introduction, debugging
+- **FLICHY Astrid**: Full notebook, DataProcessor, ModelTrainer, Hyperparameter optimization, README
 
-Example:
-- **Alice Dupont**: Data preprocessing, feature engineering, model evaluation
-- **Bob Martin**: Model training, hyperparameter optimization, documentation]

@@ -94,7 +94,6 @@ class FeatureEngineer:
         # TODO Copy the DataFrame into df_features to avoid modifying the original
         df_features=df.copy()
         # TODO Create a unique location identifier by combining coordinates
-        # This allows the model to learn location-specific patterns
         df_features['location'] = (df_features['site_latitude'].astype(str) + '_' + 
                         df['site_longitude'].astype(str))
         # Logging
@@ -123,7 +122,6 @@ class FeatureEngineer:
         logger.substep("Encoding Categorical Features")
         
         # TODO Combine datasets to ensure consistent encoding across train/test
-        # This prevents issues where test set has categories not seen in training
         train_df = train_df.copy()
         test_df = test_df.copy()
         combined = pd.concat([train_df, test_df], axis=0, ignore_index=True)
@@ -263,7 +261,6 @@ class FeatureEngineer:
         
         # Exclude metadata columns if exclude_metadata is True
         # Metadata columns are those that do not contribute to the model
-        # but are useful for understanding the data context
         if exclude_metadata:
             # Common metadata columns to exclude (but keep date as it's encoded as feature)
             metadata_cols = ['id', 'folds', 'site_id', 'country', 'city', 'site_latitude', 'site_longitude']
@@ -327,7 +324,6 @@ class FeatureEngineer:
         y = train_df[TARGET_COL]
 
         # TODO Add MLflow feature selection logging (Workshop 4)       
-            # Log feature selection parameters
         if mlflow.active_run(): 
             mlflow.log_params({
                 'Selection_method': method,
