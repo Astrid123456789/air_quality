@@ -187,25 +187,50 @@ The best-performing configuration for both algorithms typically involved:
 
 #### MLflow Experiment Tracking
 
-Performance was tracked using **MLflow**. In the evaluated runs:
+All experiments were logged in the **Default MLflow experiment** using a structured pipeline with:
+- GroupKFold cross-validation (`n_splits = 4`) stratified by city,
+- 8 071 training samples and 74 raw features,
+- feature selection via **SelectKBest** retaining 15 predictors.
 
-| Model        | CV RMSE (mean)                             | CV MAE (mean) | CV R² (mean) |
-| ------------ | ------------------------------------------ | ------------- | ------------ |
-| **XGBoost**  | 27.96 µg/m³                                | 14.69 µg/m³   | 0.078        |
-| **LightGBM** | Similar expected performance (not yet run) | —             | —            |
+The two main tracked runs are:
 
-Although XGBoost delivered slightly improved accuracy compared to linear baselines, both advanced models exhibited **modest R² values (~0.08)**, reflecting the inherently noisy and complex nature of urban air-quality data. The benefit of these advanced models lies less in absolute error reduction and more in their **capacity to generalize nonlinear relationships** and maintain consistent performance across cities. **ADJUST COMMENTS**
+| Model                                   | Feature Selection | Optimization Flag | CV RMSE (mean) | CV MAE (mean) | CV R² (mean) |
+| -------------------------------------- | ----------------- | ----------------- | -------------- | ------------- | ------------ |
+| **Linear-SELECTKBEST-OptFalse**        | SelectKBest (15)  | `False`           | 27.65 µg/m³    | 14.32 µg/m³   | 0.08         |
+| **Xgboost-SELECTKBEST-OptFalse**       | SelectKBest (15)  | `False`*          | 27.96 µg/m³    | 14.69 µg/m³   | 0.078        |
+
+\*Although the `optimization_enabled` flag is logged as `False`, the XGBoost run also stores a set of “best\_param\_*” values in MLflow, corresponding to a compact parameter configuration explored during development.
+
+Across both models, we observe:
+
+- **Similar error levels** (RMSE ≈ 28 µg/m³, MAE ≈ 14–15 µg/m³),
+- **Modest explanatory power** (**R² ≈ 0.08**), reflecting the high noise and complexity of urban air-quality data,
+- **Consistent performance across cities** thanks to the geographic GroupKFold strategy.
+
+In practice, MLflow provides:
+
+- a full audit trail of the pipeline configuration (selection method, number of features, CV strategy),
+- centralized logging of metrics and parameters,
+- artifact storage for trained models under `mlartifacts/`.
+
+This makes it straightforward to extend the experiment set later (e.g., adding LightGBM runs or tuned variants of XGBoost) while keeping a reproducible history of all model comparisons.
+
 
 #### Insights and Next Steps
 
-* **Feature importance analysis** (via built-in gain metrics) indicated that cloud and sulphur dioxide variables contributed substantially to model predictions, followed by temporal features (month, hour).
-* **Model stability:** XGBoost produced more consistent fold-level performance than the linear baseline, while LightGBM (when tested) is expected to offer similar accuracy with faster inference.
-* **Interpretability trade-off:** Despite their superior flexibility, gradient-boosting models are less transparent. For operational deployment, they should be paired with **SHAP** or **permutation importance** analysis to communicate decision factors to stakeholders.
+* **Feature importance analysis** indicated that cloud-related variables and sulphur dioxide concentrations contributed substantially to predictions, followed by temporal descriptors such as month and hour.
+
+* **Model stability:** XGBoost produced similar fold-level performance to the linear baseline, with comparable variance across the GroupKFold splits. LightGBM, while not yet included in the MLflow experiment logs, is expected to yield similar accuracy with faster inference once evaluated.
+
+* **Interpretability trade-off:** Given the principle of parsimony and the similar performance observed between linear and nonlinear models, linear regression remains preferable for operational deployment due to its higher interpretability and ease of explanation to stakeholders.
+
 
 #### Recommendation
 
-Deploy a **tuned XGBoost model** as the production baseline for air-quality forecasting, supported by MLflow for experiment tracking and version control.
-LightGBM can serve as an alternative when lower latency or resource constraints are a priority.
+Given the similar performance observed between linear and nonlinear models, a **regularized linear model** is currently the most suitable production baseline due to its interpretability, transparency, and operational simplicity.  
+
+XGBoost remains a valuable next step for future iterations—once properly tuned—especially if additional nonlinear temporal or meteorological features are introduced. LightGBM can also be evaluated later as a faster alternative when latency or resource constraints are critical.
+
 
 ## Key Findings
 
@@ -223,7 +248,7 @@ LightGBM can serve as an alternative when lower latency or resource constraints 
 
 ### Most Important Features
 
-Feature selection (RFE) and XGBoost importance analyses consistently identified the following predictors as dominant:
+Feature selection (RFE) and model importance analyses consistently identified the following predictors as dominant:
 
 * **Nitrogen dioxide (NO₂) variables:** the most influential group, reflecting strong links between combustion emissions and PM2.5 formation.
 * **Sulphur dioxide (SO₂) columns:** secondary but significant drivers, likely tied to industrial and traffic sources.
@@ -233,8 +258,7 @@ Feature selection (RFE) and XGBoost importance analyses consistently identified 
 
 ### Model Performance Comparison
 
-* Both **Linear Regression** and **XGBoost** achieved comparable results:
-
+* Both **Linear Regression** and **XGBoost** achieved comparable results, with **Linear Regression** performing **slightly better overall**:
   * Linear Regression → RMSE = 27.65 µg/m³, MAE = 14.32 µg/m³, R² = 0.0796
   * XGBoost → RMSE = 27.96 µg/m³, MAE = 14.69 µg/m³, R² = 0.0783
 * The **Actual vs Predicted** and **Residual plots** show that most predictions cluster close to the ideal line, though high PM2.5 values are slightly underpredicted, typical of regression models trained on imbalanced targets.
@@ -267,7 +291,7 @@ The low but positive R² (~0.08) confirms that while variability is high, the mo
 
 ### Feature Importance Ranking
 
-Feature ranking derived from **Recursive Feature Elimination (RFE)** and **XGBoost feature importance** consistently highlighted the following predictors:
+Feature ranking derived from **Recursive Feature Elimination (RFE)** and **model feature importance** consistently highlighted the following predictors:
 
 | Rank | Feature                                                   | Description                                             |
 | ---- | --------------------------------------------------------- | ------------------------------------------------------- |
@@ -285,7 +309,7 @@ These results reinforce the dominance of **NO₂ and SO₂** as primary drivers 
 ### Comparison Between Models
 
 * **Linear Regression**: Provides a transparent and fast baseline; performs competitively given the modest dataset size.
-* **XGBoost**: Slightly higher stability and robustness to feature interactions but with minimal gain in overall accuracy.
+* **XGBoost**: More robust to feature interactions, though in the current experiments it provided no accuracy improvement over the linear baseline.
 * **Residual analysis** confirms that both models predict moderate concentrations well but tend to **underestimate high-pollution events**, suggesting that additional temporal and meteorological features could help capture extremes.
 
 Overall, both models deliver consistent and interpretable results, forming a solid baseline for future optimization and deployment.
@@ -322,15 +346,15 @@ Overall, both models deliver consistent and interpretable results, forming a sol
 
 * All models were evaluated using **GroupKFold (n=4)**, ensuring that data from each city formed a unique fold for validation.
 * Performance metrics recorded:
-
   * **Root Mean Squared Error (RMSE)**
   * **Mean Absolute Error (MAE)**
   * **R² score**
-* Additional visual diagnostics included:
 
+* Additional visual diagnostics included:
   * **Actual vs Predicted** plots to assess fit quality.
   * **Residual plots** to detect bias or heteroscedasticity.
   * **Feature importance graphs** (from RFE and XGBoost) to identify dominant predictors.
+
 * **MLflow** tracked all parameters, metrics, and artifacts, enabling full experiment reproducibility.
 
 This methodology ensured that the pipeline remained **consistent, explainable, and aligned with CRISP-DM standards**, from data cleaning through evaluation.
@@ -340,4 +364,3 @@ This methodology ensured that the pipeline remained **consistent, explainable, a
 
 - **BENDAHMAN Meryem**: Full notebook, FeatureEngineer, Evaluator, MLOps introduction, debugging
 - **FLICHY Astrid**: Full notebook, DataProcessor, ModelTrainer, Hyperparameter optimization, README
-
